@@ -41,4 +41,4 @@ library for handling the Java Virtual Machine.
 
 See the example repository for more information:
 
-http://fracpete.github.io/scikit-weka-examples
+http://github.com/fracpete/scikit-weka-examples
