@@ -4,6 +4,18 @@ from datetime import datetime
 from weka.core.dataset import missing_value
 
 
+def to_nominal_labels(y):
+    """
+    Turns the numeric column vector into a string vector.
+
+    :param y: the vector to convert
+    :type y: list or ndarray
+    :return: the converted vector
+    :rtype: list
+    """
+    return ["_" + str(x) for x in y]
+
+
 def split_off_class(data, class_index):
     """
     Splits off the class attribute from the data matrix.
