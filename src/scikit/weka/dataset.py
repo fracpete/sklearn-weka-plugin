@@ -82,6 +82,58 @@ def load_arff(fname, class_index=None):
     return X, y, meta
 
 
+def determine_attribute_types(X):
+    """
+    Determines the type of the columns.
+
+    :param X: the 2D data to determine the column types for
+    :type X: ndarray
+    :return: the list of types (C=categorical, N=numeric)
+    :rtype: list
+    """
+    if len(X) == 0:
+        raise Exception("No data to convert!")
+
+    num_rows = len(X)
+    num_cols = len(X[0])
+
+    # initialize types
+    result = []
+    for i in range(num_cols):
+        result.append("N")
+
+    for i in range(num_cols):
+        for n in range(num_rows):
+            r = X[n]
+            try:
+                float(r[i])
+            except:
+                result[i] = "C"
+                break
+
+    return result
+
+
+def determine_attribute_type(y):
+    """
+    Determines the type of the column.
+
+    :param y: the 1D vector to determine the type for
+    :type y: ndarray
+    :return: the type (C=categorical, N=numeric)
+    :rtype: str
+    """
+    result = "N"
+    for i in range(len(y)):
+        try:
+            float(y[i])
+        except:
+            result = "C"
+            break
+
+    return result
+
+
 def to_instances(X, y=None, att_names=None, att_types=None, class_name=None, class_type=None, relation_name=None):
     """
     Turns the 2D matrix and the optional 1D class vector into an Instances object.
@@ -108,9 +160,7 @@ def to_instances(X, y=None, att_names=None, att_types=None, class_name=None, cla
 
     # defaults
     if att_types is None:
-        att_types = []
-        for i in range(len(X[0])):
-            att_types.append("N")
+        att_types = determine_attribute_types(X)
     if att_names is None:
         att_names = []
         for i in range(len(X[0])):
@@ -123,7 +173,7 @@ def to_instances(X, y=None, att_names=None, att_types=None, class_name=None, cla
         else:
             class_name = "class-" + str(len(att_names) + 1)
     if class_type is None:
-        class_type = "N"
+        class_type = determine_attribute_type(y)
 
     # create header
     atts = []
@@ -135,10 +185,12 @@ def to_instances(X, y=None, att_names=None, att_types=None, class_name=None, cla
         if att_type == "N":
             atts.append(Attribute.create_numeric(att_name))
         elif att_type == "C":
-            values = []
+            labels = set()
             for n in range(len(X)):
                 r = X[n]
-                values.append(str(r[i]))
+                v = str(r[i])
+                labels.add(v)
+            values = sorted(set)
             atts.append(Attribute.create_nominal(att_name, values))
         else:
             raise Exception("Unsupported attribute type for column %d: %s" % ((i+1), att_type))
@@ -147,7 +199,7 @@ def to_instances(X, y=None, att_names=None, att_types=None, class_name=None, cla
         if class_type == "N":
             atts.append(Attribute.create_numeric(class_name))
         elif class_type == "C":
-            values = [str(x) for x in y]
+            values = sorted(set([str(x) for x in y]))
             atts.append(Attribute.create_nominal(class_name, values))
 
     result = Instances.create_instances(relation_name, atts, len(X))
@@ -213,4 +265,6 @@ def to_instance(header, x, y=None, weight=1.0):
         else:
             raise Exception("Unsupported attribute type for class attribute: %s" % header.class_attribute.type_str())
 
-    return Instance.create_instance(values, weight=weight)
+    result = Instance.create_instance(values, weight=weight)
+    result.dataset = header
+    return result
