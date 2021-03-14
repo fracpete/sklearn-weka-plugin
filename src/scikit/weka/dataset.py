@@ -1,6 +1,7 @@
 from scipy.io.arff import loadarff
 from weka.core.dataset import Instances, Instance, Attribute
 from datetime import datetime
+from weka.core.dataset import missing_value
 
 
 def split_off_class(data, class_index):
@@ -96,6 +97,8 @@ def to_instances(X, y=None, att_names=None, att_types=None, class_name=None, cla
     :type class_name: str
     :param class_type: the type of the class attribute (C=categorical, N=numeric)
     :type class_type: str
+    :param relation_name: the name for the dataset
+    :type relation_name: str
     :return: the generated Instances object
     :rtype: Instances
     """
@@ -164,11 +167,11 @@ def to_instances(X, y=None, att_names=None, att_types=None, class_name=None, cla
                 raise Exception("Unsupported attribute type for column %d: %s" % ((i+1), att_types[i]))
         if y is not None:
             if class_type == "C":
-                values.append(atts[i].index_of(str(y[n])))
+                values.append(atts[-1].index_of(str(y[n])))
             elif class_type == "N":
                 values.append(y[n])
             else:
-                raise Exception("Unsupported attribute type for class: %s" % att_types[i])
+                raise Exception("Unsupported attribute type for class: %s" % class_type)
         inst = Instance.create_instance(values)
         result.add_instance(inst)
 
@@ -177,6 +180,7 @@ def to_instances(X, y=None, att_names=None, att_types=None, class_name=None, cla
 
 def to_instance(header, x, y=None, weight=1.0):
     """
+    Generates an Instance from the data.
 
     :param header: the data structure to adhere to
     :type header: Instances
@@ -184,6 +188,8 @@ def to_instance(header, x, y=None, weight=1.0):
     :type x: ndarray
     :param y: the optional class value
     :type y: object
+    :param weight: the weigth for the Instance
+    :type weight: float
     :return: the generate Instance
     :rtype: Instance
     """
@@ -198,7 +204,9 @@ def to_instance(header, x, y=None, weight=1.0):
             raise Exception("Unsupported attribute type for column %d: %s" % ((i+1), header.attribute(i).type_str()))
 
     if y is not None and header.has_class():
-        if header.class_attribute.is_nominal:
+        if y == missing_value():
+            values.append(missing_value())
+        elif header.class_attribute.is_nominal:
             values.append(header.class_attribute.index_of(str(y)))
         elif header.class_attribute.is_numeric:
             values.append(y)
