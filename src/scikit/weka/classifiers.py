@@ -42,9 +42,10 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
 
         super(WekaEstimator, self).__init__(_jobject)
         self._classifier = Classifier(jobject=_jobject)
+        self._header = None
+        # the following references are required for get_params/set_params
         self._classname = classname
         self._options = options
-        self._header = None
 
     @property
     def classifier(self):
@@ -88,7 +89,7 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
 
         :param data: the data matrix to generate predictions for, array-like of shape (n_samples, n_features)
         :type data: ndarray
-        :return:
+        :return: the score (or scores)
         """
 
         # scoring with list of rows?
@@ -122,7 +123,7 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         :return: the dictionary with options
         :rtype: dict
         """
-        result = {}
+        result = dict()
         result["classname"] = self._classname
         result["options"] = self._options
         return result
@@ -138,7 +139,9 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
             raise Exception("Cannot find 'classname' in parameters!")
         if "options" not in params:
             raise Exception("Cannot find 'optionms' in parameters!")
-        self._classifier = Classifier(classname=params["classname"], options=params["options"])
+        self._classname = params["classname"]
+        self._options = params["options"]
+        self._classifier = Classifier(classname=self._classname, options=self._options)
 
     def __str__(self):
         """
@@ -148,7 +151,7 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         :rtype: str
         """
         if self._classifier is None:
-            return "No model built yet"
+            return self._classname + ": No model built yet"
         else:
             return str(self._classifier)
 
@@ -159,7 +162,10 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         :return: the copy
         :rtype: WekaEstimator
         """
-        return WekaEstimator(jobject=deepcopy(self.jobject))
+        result = WekaEstimator(jobject=deepcopy(self.jobject))
+        result._classname = self._classname
+        result._options = self._options[:]
+        return result
 
     def __repr__(self, N_CHAR_MAX=700):
         """
