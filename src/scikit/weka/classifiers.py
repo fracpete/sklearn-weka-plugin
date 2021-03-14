@@ -1,3 +1,4 @@
+from numpy import ndarray
 from sklearn.base import BaseEstimator, ClassifierMixin, RegressorMixin
 from weka.classifiers import Classifier
 from weka.core.classes import is_instance_of, OptionHandler
@@ -98,10 +99,17 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
                     for d in data:
                         result.append(self.predict(d))
                     return result
+        # scoring with ndarray with ndim > 1?
+        elif isinstance(data, ndarray):
+            if data.ndim > 1:
+                result = []
+                for d in data:
+                    result.append(self.predict(d))
+                return result
 
         inst = to_instance(self._header, data, missing_value())
         if self._header.class_attribute.is_nominal:
-            return self._classifier.distribution_for_instance(inst)
+            return self._header.class_attribute.value(int(self._classifier.classify_instance(inst)))
         else:
             return self._classifier.classify_instance(inst)
 
