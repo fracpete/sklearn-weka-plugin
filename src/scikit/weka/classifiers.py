@@ -19,7 +19,7 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         :param classname: the classname of the Weka classifier to instantiate
         :type classname: str
         :param options: the command-line options of the Weka classifier to instantiate
-        :type options: str
+        :type options: list
         :param classifier: the classifier wrapper to use
         :type classifier: Classifier
         :param jobject: the JB_Object representing a Weka classifier to use
