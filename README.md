@@ -5,6 +5,19 @@ It makes use of the [python-weka-wrapper3](https://github.com/fracpete/python-we
 library for handling the Java Virtual Machine.
 
 
+## Functionality
+
+* Available
+
+  * Classifiers (classification/regression)
+
+* Planned
+
+  * Clusterers
+  * Data generators
+  * Filters
+
+
 ## Installation
 
 * create virtual environment
