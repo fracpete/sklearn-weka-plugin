@@ -1,0 +1,174 @@
+import numpy as np
+from numpy import ndarray
+from sklearn.base import BaseEstimator, TransformerMixin
+from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
+from weka.filters import Filter
+from weka.core.classes import is_instance_of, OptionHandler
+from weka.core.dataset import missing_value
+from weka.core.serialization import deepcopy
+from scikit.weka.dataset import to_instances, to_array
+
+
+class WekaTransformer(BaseEstimator, OptionHandler, TransformerMixin):
+    """
+    Wraps a Weka filter within the scikit-learn framework.
+    """
+
+    def __init__(self, jobject=None, filter=None, classname=None, options=None):
+        """
+        Initializes the estimator. Can be either instantiated via the following priority of parameters:
+        1. JB_Object representing a Java Filter object
+        2. Filter pww3 wrapper
+        3. classname/options
+
+        :param jobject: the JB_Object representing a Weka filter to use
+        :type jobject: JB_Object
+        :param filter: the filter wrapper to use
+        :type filter: Filter
+        :param classname: the classname of the Weka filter to instantiate
+        :type classname: str
+        :param options: the command-line options of the Weka filter to instantiate
+        :type options: list
+        """
+        if jobject is not None:
+            _jobject = jobject
+        elif filter is not None:
+            _jobject = filter.jobject
+        elif classname is not None:
+            if options is None:
+                options = []
+            classifier = Filter(classname=classname, options=options)
+            _jobject = classifier.jobject
+        else:
+            raise Exception("At least Java classname must be provided!")
+
+        if not is_instance_of(_jobject, "weka.filters.Filter"):
+            raise Exception("Java object does not implement weka.filters.Filter!")
+
+        super(WekaTransformer, self).__init__(_jobject)
+        self._filter = Filter(jobject=_jobject)
+        self._header = None
+        # the following references are required for get_params/set_params
+        self._classname = classname
+        self._options = options
+
+    @property
+    def filter(self):
+        """
+        Returns the underlying filter object, if any.
+
+        :return: the classifier object
+        :rtype: Classifier
+        """
+        return self._filter
+
+    @property
+    def header(self):
+        """
+        Returns the underlying dataset header, if any.
+
+        :return: the dataset structure
+        :rtype: Instances
+        """
+        return self._header
+
+    def fit(self, data, targets):
+        """
+        Trains the estimator.
+
+        :param data: the input variables as matrix, array-like of shape (n_samples, n_features)
+        :type data: ndarray
+        :param targets: the optional class attribute column, array-like of shape (n_samples,)
+        :type targets: ndarray
+        :return: itself
+        :rtype: WekaTransformer
+        """
+        self.X_ = data
+        self.y_ = targets
+        d = to_instances(data, targets)
+        self._filter.inputformat(d)
+        self._filter.filter(d)
+        return self
+
+    def transform(self, data, targets):
+        """
+        Filters the data.
+
+        :param data: the data to filter, array-like of shape (n_samples, n_features)
+        :type data: ndarray
+        :param targets: the optional class attribute column, array-like of shape (n_samples,)
+        :type targets: ndarray
+        :return: the filtered data, X if no targets or (X, y) if targets provided
+        :rtype: ndarray or tuple
+        """
+        d = to_instances(data, targets)
+        d_new = self._filter.filter(d)
+        X, y = to_array(d_new)
+        if targets is None:
+            return X
+        else:
+            return X, y
+
+    def get_params(self, deep=True):
+        """
+        Returns the parameters for this classifier, basically classname and options list.
+
+        :param deep: ignored
+        :type deep: bool
+        :return: the dictionary with options
+        :rtype: dict
+        """
+        result = dict()
+        result["classname"] = self._classname
+        result["options"] = self._options
+        return result
+
+    def set_params(self, **params):
+        """
+        Sets the options for the classifier, expects 'classname' and 'options'.
+
+        :param params: the parameter dictionary
+        :type params: dict
+        """
+        if "classname" not in params:
+            raise Exception("Cannot find 'classname' in parameters!")
+        if "options" not in params:
+            raise Exception("Cannot find 'options' in parameters!")
+        self._classname = params["classname"]
+        self._options = params["options"]
+        self._filter = Filter(classname=self._classname, options=self._options)
+
+    def __str__(self):
+        """
+        For printing the model.
+
+        :return: the model representation, if any
+        :rtype: str
+        """
+        if self._filter is None:
+            return self._classname + ": No filter instantiated yet"
+        else:
+            return str(self._filter)
+
+    def __copy__(self):
+        """
+        Creates a deep copy of itself.
+
+        :return: the copy
+        :rtype: WekaTransformer
+        """
+        result = WekaTransformer(jobject=deepcopy(self.jobject))
+        result._classname = self._classname
+        result._options = self._options[:]
+        return result
+
+    def __repr__(self, N_CHAR_MAX=700):
+        """
+        Returns a valid Python string using its classname and options.
+
+        :param N_CHAR_MAX: ignored
+        :type N_CHAR_MAX: int
+        :return: the representation
+        :rtype: str
+        """
+        return "WekaTransformer(classname='%s', options=%s)" % (self._filter.classname, str(self._filter.options))
