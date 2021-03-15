@@ -1,17 +1,18 @@
 # scikit-weka
-Makes Weka algorithms available in scikit-learn.
+Makes [Weka](https://www.cs.waikato.ac.nz/ml/weka/) algorithms available in [scikit-learn](https://scikit-learn.org/).
 
-It makes use of the [python-weka-wrapper3](https://github.com/fracpete/python-weka-wrapper3) 
-library for handling the Java Virtual Machine.
+Built on top of the [python-weka-wrapper3](https://github.com/fracpete/python-weka-wrapper3) 
+library, it uses the [javabridge](https://pypi.python.org/pypi/javabridge) library
+under the hood for communicating with Weka objects in the Java Virtual Machine.
 
 
 ## Functionality
 
-* Available
+Currently available:
 
-  * Classifiers (classification/regression)
-  * Clusters
-  * Filters
+* Classifiers (classification/regression)
+* Clusters
+* Filters
 
 
 ## Installation
