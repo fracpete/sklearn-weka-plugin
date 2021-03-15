@@ -2,6 +2,8 @@ from scipy.io.arff import loadarff
 from weka.core.dataset import Instances, Instance, Attribute
 from datetime import datetime
 from weka.core.dataset import missing_value
+import numpy as np
+from numpy import ndarray
 
 
 def to_nominal_labels(y):
@@ -11,9 +13,9 @@ def to_nominal_labels(y):
     :param y: the vector to convert
     :type y: list or ndarray
     :return: the converted vector
-    :rtype: list
+    :rtype: ndarray
     """
-    return ["_" + str(x) for x in y]
+    return np.array(["_" + str(x) for x in y])
 
 
 def split_off_class(data, class_index):
@@ -23,7 +25,7 @@ def split_off_class(data, class_index):
     (first,second,last,last-1 are accepted as well).
 
     :param data: the 2D matrix to process
-    :type data: ndarrau
+    :type data: ndarray
     :param class_index: the position of the class attribute to split off
     :type class_index: int or str
     :return: the input variables (2D matrix) and the output variable (1D)
@@ -71,7 +73,7 @@ def split_off_class(data, class_index):
             rn.extend(r[index+1:])
             X.append(rn)
     y = [r[index] for r in data]
-    return X, y
+    return np.array(X), np.array(y)
 
 
 def load_arff(fname, class_index=None):
@@ -89,7 +91,7 @@ def load_arff(fname, class_index=None):
     """
     data, meta = loadarff(fname)
     if class_index is None:
-        return data, meta
+        return np.array(data), meta
     X, y = split_off_class(data, class_index)
     return X, y, meta
 
@@ -252,7 +254,7 @@ def to_instance(header, x, y=None, weight=1.0):
     :type x: ndarray
     :param y: the optional class value
     :type y: object
-    :param weight: the weigth for the Instance
+    :param weight: the weight for the Instance
     :type weight: float
     :return: the generate Instance
     :rtype: Instance

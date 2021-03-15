@@ -114,6 +114,34 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         else:
             return self._classifier.classify_instance(inst)
 
+    def predict_proba(self, data):
+        """
+        Performs predictions and returns class probabilities.
+
+        :param data: the data matrix to generate predictions for, array-like of shape (n_samples, n_features)
+        :type data: ndarray
+        :return: the probabilities
+        """
+
+        # scoring with list of rows?
+        if isinstance(data, list):
+            if len(data) > 0:
+                if isinstance(data[0], list):
+                    result = []
+                    for d in data:
+                        result.append(self.predict_proba(d))
+                    return result
+        # scoring with ndarray with ndim > 1?
+        elif isinstance(data, ndarray):
+            if data.ndim > 1:
+                result = []
+                for d in data:
+                    result.append(self.predict_proba(d))
+                return result
+
+        inst = to_instance(self._header, data, missing_value())
+        return self._classifier.distribution_for_instance(inst)
+
     def get_params(self, deep=True):
         """
         Returns the parameters for this classifier, basically classname and options list.
@@ -138,7 +166,7 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         if "classname" not in params:
             raise Exception("Cannot find 'classname' in parameters!")
         if "options" not in params:
-            raise Exception("Cannot find 'optionms' in parameters!")
+            raise Exception("Cannot find 'options' in parameters!")
         self._classname = params["classname"]
         self._options = params["options"]
         self._classifier = Classifier(classname=self._classname, options=self._options)
