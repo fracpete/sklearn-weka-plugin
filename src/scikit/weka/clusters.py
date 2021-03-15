@@ -1,6 +1,7 @@
 import numpy as np
 from numpy import ndarray
 from sklearn.base import BaseEstimator, ClusterMixin
+from sklearn.utils.validation import check_is_fitted
 from weka.clusterers import Clusterer
 from weka.core.classes import is_instance_of, OptionHandler
 from weka.core.serialization import deepcopy
@@ -72,7 +73,24 @@ class WekaCluster(BaseEstimator, OptionHandler, ClusterMixin):
 
     def fit(self, data, targets=None):
         """
-        Trains the estimator.
+        Trains the cluster.
+
+        :param data: the input variables as matrix, array-like of shape (n_samples, n_features)
+        :type data: ndarray
+        :param targets: ignored
+        :type targets: ndarray
+        :return: the cluster
+        :rtype: WekaCluster
+        """
+        d = to_instances(data)
+        self._cluster.build_clusterer(d)
+        self._header = d.template_instances(d, 0)
+        self.X_ = data
+        return self
+
+    def predict(self, data, targets=None):
+        """
+        Predicts cluster labels.
 
         :param data: the input variables as matrix, array-like of shape (n_samples, n_features)
         :type data: ndarray
@@ -81,29 +99,26 @@ class WekaCluster(BaseEstimator, OptionHandler, ClusterMixin):
         :return: the cluster labels (of type int)
         :rtype: ndarray
         """
-        d = to_instances(data)
-        self._cluster.build_clusterer(d)
-        self._header = d.template_instances(d, 0)
-        self.X_ = data
-        return self
-
-    def fit_predict(self, data, targets=None):
-        """
-        Trains the estimator and returns the cluster.
-
-        :param data: the input variables as matrix, array-like of shape (n_samples, n_features)
-        :type data: ndarray
-        :param targets: ignored
-        :type targets: ndarray
-        :return: itself
-        :rtype: WekaEstimator
-        """
-        self.fit(data)
+        check_is_fitted(self)
         result = []
         for d in data:
             inst = to_instance(self._header, d)
             result.append(int(self._cluster.cluster_instance(inst)))
         return np.array(result)
+
+    def fit_predict(self, data, targets=None):
+        """
+        Trains the cluster and returns the cluster labels.
+
+        :param data: the input variables as matrix, array-like of shape (n_samples, n_features)
+        :type data: ndarray
+        :param targets: ignored
+        :type targets: ndarray
+        :return: the cluster labels (of type int)
+        :rtype: ndarray
+        """
+        self.fit(data)
+        return self.predict(data)
 
     def get_params(self, deep=True):
         """
