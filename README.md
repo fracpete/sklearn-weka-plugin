@@ -10,12 +10,8 @@ library for handling the Java Virtual Machine.
 * Available
 
   * Classifiers (classification/regression)
+  * Clusters
   * Filters
-
-* Planned
-
-  * Clusterers
-  * Data generators
 
 
 ## Installation
