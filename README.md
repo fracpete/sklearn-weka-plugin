@@ -51,3 +51,10 @@ library for handling the Java Virtual Machine.
 See the example repository for more information:
 
 http://github.com/fracpete/scikit-weka-examples
+
+Direct links:
+
+* [classifiers](https://github.com/fracpete/scikit-weka-examples/blob/main/src/scikitwekaexamples/classifiers.py)
+* [clusters](https://github.com/fracpete/scikit-weka-examples/blob/main/src/scikitwekaexamples/clusters.py)
+* [preprocessing](https://github.com/fracpete/scikit-weka-examples/blob/main/src/scikitwekaexamples/preprocessing.py)
+* [pipeline](https://github.com/fracpete/scikit-weka-examples/blob/main/src/scikitwekaexamples/pipeline.py)
