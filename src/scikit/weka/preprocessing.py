@@ -84,7 +84,7 @@ class WekaTransformer(BaseEstimator, OptionHandler, TransformerMixin):
         """
         self.X_ = data
         self.y_ = targets
-        d = to_instances(data, targets)
+        d = to_instances(data, y=targets)
         self._header = Instances.template_instances(d)
         self._filter.inputformat(d)
         self._filter.filter(d)
@@ -110,7 +110,7 @@ class WekaTransformer(BaseEstimator, OptionHandler, TransformerMixin):
                 targets.append(missing_value())
             targets = np.array(targets)
 
-        d = to_instances(data, targets)
+        d = to_instances(data, y=targets)
         d_new = self._filter.filter(d)
         X, y = to_array(d_new)
         if no_targets:

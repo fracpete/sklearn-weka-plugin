@@ -83,7 +83,7 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         :return: itself
         :rtype: WekaEstimator
         """
-        data, targets = check_X_y(data, targets)
+        data, targets = check_X_y(data, y=targets)
         d = to_instances(data, targets)
         self._classifier.build_classifier(d)
         self._header = d.template_instances(d, 0)
