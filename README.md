@@ -33,7 +33,7 @@ Currently available:
 
   http://fracpete.github.io/python-weka-wrapper3/install.html
   
-* install the library
+* install the scikit-weka  library itself
 
   * from local source
 
