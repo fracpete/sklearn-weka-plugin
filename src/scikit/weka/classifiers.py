@@ -1,3 +1,4 @@
+import numpy as np
 from numpy import ndarray
 from sklearn.base import BaseEstimator, ClassifierMixin, RegressorMixin
 from weka.classifiers import Classifier
@@ -90,29 +91,17 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         :param data: the data matrix to generate predictions for, array-like of shape (n_samples, n_features)
         :type data: ndarray
         :return: the score (or scores)
+        :rtype: ndarray
         """
 
-        # scoring with list of rows?
-        if isinstance(data, list):
-            if len(data) > 0:
-                if isinstance(data[0], list):
-                    result = []
-                    for d in data:
-                        result.append(self.predict(d))
-                    return result
-        # scoring with ndarray with ndim > 1?
-        elif isinstance(data, ndarray):
-            if data.ndim > 1:
-                result = []
-                for d in data:
-                    result.append(self.predict(d))
-                return result
-
-        inst = to_instance(self._header, data, missing_value())
-        if self._header.class_attribute.is_nominal:
-            return self._header.class_attribute.value(int(self._classifier.classify_instance(inst)))
-        else:
-            return self._classifier.classify_instance(inst)
+        result = []
+        for d in data:
+            inst = to_instance(self._header, d, missing_value())
+            if self._header.class_attribute.is_nominal:
+                result.append(self._header.class_attribute.value(int(self._classifier.classify_instance(inst))))
+            else:
+                result.append(self._classifier.classify_instance(inst))
+        return np.array(result)
 
     def predict_proba(self, data):
         """
@@ -123,24 +112,11 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         :return: the probabilities
         """
 
-        # scoring with list of rows?
-        if isinstance(data, list):
-            if len(data) > 0:
-                if isinstance(data[0], list):
-                    result = []
-                    for d in data:
-                        result.append(self.predict_proba(d))
-                    return result
-        # scoring with ndarray with ndim > 1?
-        elif isinstance(data, ndarray):
-            if data.ndim > 1:
-                result = []
-                for d in data:
-                    result.append(self.predict_proba(d))
-                return result
-
-        inst = to_instance(self._header, data, missing_value())
-        return self._classifier.distribution_for_instance(inst)
+        result = []
+        for d in data:
+            inst = to_instance(self._header, d, missing_value())
+            result.append(self._classifier.distribution_for_instance(inst))
+        return np.array(result)
 
     def get_params(self, deep=True):
         """
