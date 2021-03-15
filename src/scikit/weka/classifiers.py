@@ -17,14 +17,14 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         2. Classifier pww3 wrapper
         3. classname/options
 
+        :param jobject: the JB_Object representing a Weka classifier to use
+        :type jobject: JB_Object
+        :param classifier: the classifier wrapper to use
+        :type classifier: Classifier
         :param classname: the classname of the Weka classifier to instantiate
         :type classname: str
         :param options: the command-line options of the Weka classifier to instantiate
         :type options: list
-        :param classifier: the classifier wrapper to use
-        :type classifier: Classifier
-        :param jobject: the JB_Object representing a Weka classifier to use
-        :type jobject: JB_Object
         """
         if jobject is not None:
             _jobject = jobject
