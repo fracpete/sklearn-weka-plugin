@@ -35,7 +35,7 @@ Currently available:
   
 * install the library
 
-  * from source
+  * from local source
 
     ```commandline
     ./venv/bin/pip install .   
