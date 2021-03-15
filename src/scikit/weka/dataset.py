@@ -186,8 +186,9 @@ def to_instances(X, y=None, att_names=None, att_types=None, class_name=None, cla
             class_name = "class"
         else:
             class_name = "class-" + str(len(att_names) + 1)
-    if class_type is None:
-        class_type = determine_attribute_type(y)
+    if y is not None:
+        if class_type is None:
+            class_type = determine_attribute_type(y)
 
     # create header
     atts = []
@@ -282,3 +283,38 @@ def to_instance(header, x, y=None, weight=1.0):
     result = Instance.create_instance(values, weight=weight)
     result.dataset = header
     return result
+
+
+def to_array(data):
+    """
+    Turns the Instances object into ndarrays for X and y. If no class is present, then y will be None.
+
+    :param data: the data to convert
+    :type data: Instances
+    :return: the generated arrays for X and y
+    :rtype: tuple
+    """
+    has_class = data.has_class()
+    class_index = data.class_index
+    X = []
+    y = [] if has_class else None
+    for i in range(data.num_instances):
+        inst = data.get_instance(i)
+        row = []
+        for n in range(data.num_attributes):
+            if n == class_index:
+                continue
+            if data.attribute(n).is_numeric:
+                row.append(inst.get_value(n))
+            else:
+                row.append(inst.get_string_value(n))
+        X.append(row)
+        if has_class:
+            if data.class_attribute.is_numeric:
+                y.append(inst.get_value(class_index))
+            else:
+                y.append(inst.get_string_value(class_index))
+    X = np.array(X)
+    if y is not None:
+        y = np.array(y)
+    return X, y
