@@ -1,10 +1,9 @@
 import numpy as np
 from numpy import ndarray
 from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
 from weka.filters import Filter
 from weka.core.classes import is_instance_of, OptionHandler
-from weka.core.dataset import missing_value
+from weka.core.dataset import missing_value, Instances
 from weka.core.serialization import deepcopy
 from scikit.weka.dataset import to_instances, to_array
 
@@ -86,11 +85,12 @@ class WekaTransformer(BaseEstimator, OptionHandler, TransformerMixin):
         self.X_ = data
         self.y_ = targets
         d = to_instances(data, targets)
+        self._header = Instances.template_instances(d)
         self._filter.inputformat(d)
         self._filter.filter(d)
         return self
 
-    def transform(self, data, targets):
+    def transform(self, data, targets=None):
         """
         Filters the data.
 
@@ -101,10 +101,19 @@ class WekaTransformer(BaseEstimator, OptionHandler, TransformerMixin):
         :return: the filtered data, X if no targets or (X, y) if targets provided
         :rtype: ndarray or tuple
         """
+        no_targets = targets is None
+
+        # dummy class values necessary?
+        if no_targets and self._header.has_class():
+            targets = []
+            for i in range(data.shape[0]):
+                targets.append(missing_value())
+            targets = np.array(targets)
+
         d = to_instances(data, targets)
         d_new = self._filter.filter(d)
         X, y = to_array(d_new)
-        if targets is None:
+        if no_targets:
             return X
         else:
             return X, y
