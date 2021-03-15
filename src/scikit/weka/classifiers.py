@@ -1,6 +1,7 @@
 import numpy as np
 from numpy import ndarray
 from sklearn.base import BaseEstimator, ClassifierMixin, RegressorMixin
+from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
 from weka.classifiers import Classifier
 from weka.core.classes import is_instance_of, OptionHandler
 from weka.core.dataset import missing_value
@@ -9,6 +10,9 @@ from scikit.weka.dataset import to_instances, to_instance
 
 
 class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixin):
+    """
+    Wraps a Weka classifier (classifier/regressor) within the scikit-learn framework.
+    """
 
     def __init__(self, jobject=None, classifier=None, classname=None, options=None):
         """
@@ -79,9 +83,12 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         :return: itself
         :rtype: WekaEstimator
         """
+        data, targets = check_X_y(data, targets)
         d = to_instances(data, targets)
         self._classifier.build_classifier(d)
         self._header = d.template_instances(d, 0)
+        self.X_ = data
+        self.y_ = targets
         return self
 
     def predict(self, data):
@@ -93,7 +100,8 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         :return: the score (or scores)
         :rtype: ndarray
         """
-
+        check_is_fitted(self)
+        data = check_array(data)
         result = []
         for d in data:
             inst = to_instance(self._header, d, missing_value())
@@ -111,7 +119,8 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         :type data: ndarray
         :return: the probabilities
         """
-
+        check_is_fitted(self)
+        data = check_array(data)
         result = []
         for d in data:
             inst = to_instance(self._header, d, missing_value())
