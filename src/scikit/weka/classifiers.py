@@ -47,7 +47,7 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
 
         super(WekaEstimator, self).__init__(_jobject)
         self._classifier = Classifier(jobject=_jobject)
-        self._header = None
+        self.header_ = None
         # the following references are required for get_params/set_params
         self._classname = classname
         self._options = options
@@ -70,7 +70,7 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         :return: the dataset structure
         :rtype: Instances
         """
-        return self._header
+        return self.header_
 
     def fit(self, data, targets):
         """
@@ -86,9 +86,7 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         data, targets = check_X_y(data, y=targets)
         d = to_instances(data, targets)
         self._classifier.build_classifier(d)
-        self._header = d.template_instances(d, 0)
-        self.X_ = data
-        self.y_ = targets
+        self.header_ = d.template_instances(d, 0)
         return self
 
     def predict(self, data):
@@ -104,9 +102,9 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         data = check_array(data)
         result = []
         for d in data:
-            inst = to_instance(self._header, d, missing_value())
-            if self._header.class_attribute.is_nominal:
-                result.append(self._header.class_attribute.value(int(self._classifier.classify_instance(inst))))
+            inst = to_instance(self.header_, d, missing_value())
+            if self.header_.class_attribute.is_nominal:
+                result.append(self.header_.class_attribute.value(int(self._classifier.classify_instance(inst))))
             else:
                 result.append(self._classifier.classify_instance(inst))
         return np.array(result)
@@ -123,7 +121,7 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         data = check_array(data)
         result = []
         for d in data:
-            inst = to_instance(self._header, d, missing_value())
+            inst = to_instance(self.header_, d, missing_value())
             result.append(self._classifier.distribution_for_instance(inst))
         return np.array(result)
 

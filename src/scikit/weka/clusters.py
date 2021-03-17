@@ -46,7 +46,7 @@ class WekaCluster(BaseEstimator, OptionHandler, ClusterMixin):
 
         super(WekaCluster, self).__init__(_jobject)
         self._cluster = Clusterer(jobject=_jobject)
-        self._header = None
+        self.header_ = None
         # the following references are required for get_params/set_params
         self._classname = classname
         self._options = options
@@ -69,7 +69,7 @@ class WekaCluster(BaseEstimator, OptionHandler, ClusterMixin):
         :return: the dataset structure
         :rtype: Instances
         """
-        return self._header
+        return self.header_
 
     def fit(self, data, targets=None):
         """
@@ -84,8 +84,7 @@ class WekaCluster(BaseEstimator, OptionHandler, ClusterMixin):
         """
         d = to_instances(data)
         self._cluster.build_clusterer(d)
-        self._header = d.template_instances(d, 0)
-        self.X_ = data
+        self.header_ = d.template_instances(d, 0)
         return self
 
     def predict(self, data, targets=None):
@@ -102,7 +101,7 @@ class WekaCluster(BaseEstimator, OptionHandler, ClusterMixin):
         check_is_fitted(self)
         result = []
         for d in data:
-            inst = to_instance(self._header, d)
+            inst = to_instance(self.header_, d)
             result.append(int(self._cluster.cluster_instance(inst)))
         return np.array(result)
 

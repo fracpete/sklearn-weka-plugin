@@ -1,6 +1,7 @@
 import numpy as np
 from numpy import ndarray
 from sklearn.base import BaseEstimator, TransformerMixin
+from sklearn.utils.validation import check_is_fitted, check_array, check_X_y
 from weka.filters import Filter
 from weka.core.classes import is_instance_of, OptionHandler
 from weka.core.dataset import missing_value, Instances
@@ -46,7 +47,7 @@ class WekaTransformer(BaseEstimator, OptionHandler, TransformerMixin):
 
         super(WekaTransformer, self).__init__(_jobject)
         self._filter = Filter(jobject=_jobject)
-        self._header = None
+        self.header_ = None
         # the following references are required for get_params/set_params
         self._classname = classname
         self._options = options
@@ -69,7 +70,7 @@ class WekaTransformer(BaseEstimator, OptionHandler, TransformerMixin):
         :return: the dataset structure
         :rtype: Instances
         """
-        return self._header
+        return self.header_
 
     def fit(self, data, targets):
         """
@@ -82,10 +83,12 @@ class WekaTransformer(BaseEstimator, OptionHandler, TransformerMixin):
         :return: itself
         :rtype: WekaTransformer
         """
-        self.X_ = data
-        self.y_ = targets
+        if targets is None:
+            check_array(data)
+        else:
+            check_X_y(data, targets)
         d = to_instances(data, y=targets)
-        self._header = Instances.template_instances(d)
+        self.header_ = Instances.template_instances(d)
         self._filter.inputformat(d)
         self._filter.filter(d)
         return self
@@ -101,10 +104,11 @@ class WekaTransformer(BaseEstimator, OptionHandler, TransformerMixin):
         :return: the filtered data, X if no targets or (X, y) if targets provided
         :rtype: ndarray or tuple
         """
+        check_is_fitted(self)
         no_targets = targets is None
 
         # dummy class values necessary?
-        if no_targets and self._header.has_class():
+        if no_targets and self.header_.has_class():
             targets = []
             for i in range(data.shape[0]):
                 targets.append(missing_value())
