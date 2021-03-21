@@ -6,6 +6,31 @@ import numpy as np
 from numpy import ndarray
 
 
+def to_nominal_attributes(X, indices=None):
+    """
+    Turns the numeric column vector into a string vector.
+
+    :param X: the 2D matrix to convert
+    :type X: ndarray
+    :param indices: the list of 0-based indices of attributes to convert to nominal
+    :type indices: list
+    :return: the converted matrix
+    :rtype: ndarray
+    """
+    result = []
+    indices_set = set(indices)
+    for r in X:
+        rn = []
+        for i in range(len(r)):
+            if i in indices_set:
+                rn.append("_" + str(r[i]))
+            else:
+                rn.append(r[i])
+        result.append(rn)
+
+    return np.array(result)
+
+
 def to_nominal_labels(y):
     """
     Turns the numeric column vector into a string vector.

@@ -18,8 +18,11 @@ Things to be aware of:
 
 * You need to start/stop the JVM in your Python code before you can use Weka.
 * Unlikely to work in multi-threaded/process environments (like flask).
-* Jupyter Notebooks does not play nice with javabridge, as you might have to restart the kernel in order to be able to restart the JVM (e.g., with additional packages).
-* The conversion to Weka data structures involves guesswork, i.e., if targets are to be treated as nominal, you need to convert the numeric values to strings (e.g., using `scikit.weka.dataset.to_nominal_labels`).
+* Jupyter Notebooks does not play nice with javabridge, as you might have to restart the kernel in order to be able 
+  to restart the JVM (e.g., with additional packages).
+* The conversion to Weka data structures involves guesswork, i.e., if targets are to be treated as nominal, you need 
+  to convert the numeric values to strings (e.g., using `to_nominal_labels` and/or `to_nominal_attributes` functions 
+  from `scikit.weka.dataset` or the `MakeNominal` transformer from `scikit.weka.preprocessing`).
 
 
 ## Installation
