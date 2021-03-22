@@ -59,7 +59,7 @@ Things to be aware of:
 
 ## Examples
 
-Here is a quick example:
+Here is a quick example (of which you need to adjust the paths to the datasets, of course):
 
 ```python
 import scikit.weka.jvm as jvm
@@ -73,7 +73,7 @@ from sklearn.model_selection import cross_val_score
 jvm.start(packages=True)
 
 # regression
-X, y, meta = load_arff("/home/fracpete/development/projects/fracpete/scikit-weka-examples/src/scikitwekaexamples/data/bolts.arff", "last")
+X, y, meta = load_arff("/some/where/bolts.arff", "last")
 lr = WekaEstimator(classname="weka.classifiers.functions.LinearRegression")
 scores = cross_val_score(lr, X, y, cv=10, scoring='neg_root_mean_squared_error')
 print("Cross-validating LR on bolts (negRMSE)\n", scores)
