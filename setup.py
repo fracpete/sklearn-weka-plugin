@@ -13,12 +13,12 @@ def _read(f):
 
 
 setup(
-    name="scikit-weka",
+    name="sklearn-weka-plugin",
     description="Library for making Weka algorithms available within scikit-learn. Relies on the python-weka-wrapper3 library.",
     long_description=(
         _read('DESCRIPTION.rst') + b'\n' +
         _read('CHANGES.rst')).decode('utf-8'),
-    url="https://github.com/fracpete/scikit-weka",
+    url="https://github.com/fracpete/sklearn-weka-plugin",
     classifiers=[
         'Development Status :: 4 - Beta',
         'License :: OSI Approved :: GNU General Public License (GPL)',
@@ -31,11 +31,11 @@ setup(
     },
     packages=find_namespace_packages(where='src'),
     namespace_packages=[
-        "ufdl",
+        "sklweka",
     ],
     version="0.0.1",
     author='Peter "fracpete" Reutemann',
-    author_email='scikit-weka@fracpete.org',
+    author_email='sklweka@fracpete.org',
     install_requires=[
         "numpy",
         "python-weka-wrapper3",

@@ -6,7 +6,7 @@ from weka.filters import Filter
 from weka.core.classes import is_instance_of, OptionHandler
 from weka.core.dataset import missing_value, Instances
 from weka.core.serialization import deepcopy
-from scikit.weka.dataset import to_instances, to_array, to_nominal_attributes, to_nominal_labels
+from sklweka.dataset import to_instances, to_array, to_nominal_attributes, to_nominal_labels
 
 
 class WekaTransformer(BaseEstimator, OptionHandler, TransformerMixin):

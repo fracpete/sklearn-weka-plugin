@@ -6,7 +6,7 @@ from weka.classifiers import Classifier
 from weka.core.classes import is_instance_of, OptionHandler
 from weka.core.dataset import missing_value
 from weka.core.serialization import deepcopy
-from scikit.weka.dataset import to_instances, to_instance
+from sklweka.dataset import to_instances, to_instance
 
 
 class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixin):

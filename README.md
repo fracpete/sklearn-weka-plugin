@@ -1,4 +1,4 @@
-# scikit-weka
+# sklearn-weka-plugin
 Makes [Weka](https://www.cs.waikato.ac.nz/ml/weka/) algorithms available in [scikit-learn](https://scikit-learn.org/).
 
 Built on top of the [python-weka-wrapper3](https://github.com/fracpete/python-weka-wrapper3) 
@@ -22,7 +22,7 @@ Things to be aware of:
   to restart the JVM (e.g., with additional packages).
 * The conversion to Weka data structures involves guesswork, i.e., if targets are to be treated as nominal, you need 
   to convert the numeric values to strings (e.g., using `to_nominal_labels` and/or `to_nominal_attributes` functions 
-  from `scikit.weka.dataset` or the `MakeNominal` transformer from `scikit.weka.preprocessing`).
+  from `sklweka.dataset` or the `MakeNominal` transformer from `sklweka.preprocessing`).
 
 
 ## Installation
@@ -43,7 +43,7 @@ Things to be aware of:
 
   http://fracpete.github.io/python-weka-wrapper3/install.html
   
-* install the scikit-weka  library itself
+* install the sklearn-weka-plugin  library itself
 
   * from local source
 
@@ -54,7 +54,7 @@ Things to be aware of:
   * from Github repository
 
     ```commandline
-    ./venv/bin/pip install git+https://github.com/fracpete/scikit-weka.git   
+    ./venv/bin/pip install git+https://github.com/fracpete/sklearn-weka-plugin.git   
     ```
 
 ## Examples
@@ -62,24 +62,24 @@ Things to be aware of:
 Here is a quick example (of which you need to adjust the paths to the datasets, of course):
 
 ```python
-import scikit.weka.jvm as jvm
-from scikit.weka.dataset import load_arff, to_nominal_labels
-from scikit.weka.classifiers import WekaEstimator
-from scikit.weka.clusters import WekaCluster
-from scikit.weka.preprocessing import WekaTransformer
+import sklweka.jvm as jvm
+from sklweka.dataset import load_arff, to_nominal_labels
+from sklweka.classifiers import WekaEstimator
+from sklweka.clusters import WekaCluster
+from sklweka.preprocessing import WekaTransformer
 from sklearn.model_selection import cross_val_score
 
 # start JVM with Weka package support
 jvm.start(packages=True)
 
 # regression
-X, y, meta = load_arff("/some/where/bolts.arff", "last")
+X, y, meta = load_arff("/some/where/bolts.arff", class_index="last")
 lr = WekaEstimator(classname="weka.classifiers.functions.LinearRegression")
 scores = cross_val_score(lr, X, y, cv=10, scoring='neg_root_mean_squared_error')
 print("Cross-validating LR on bolts (negRMSE)\n", scores)
 
 # classification
-X, y, meta = load_arff("/some/where/iris.arff", "last")
+X, y, meta = load_arff("/some/where/iris.arff", "class_index=last")
 y = to_nominal_labels(y)
 j48 = WekaEstimator(classname="weka.classifiers.trees.J48", options=["-M", "3"])
 j48.fit(X, y)
@@ -90,7 +90,7 @@ for i in range(len(y)):
     print(y[i], "->", scores[i], probas[i])
 
 # clustering
-X, y, meta = load_arff("/some/where/iris.arff", "last")
+X, y, meta = load_arff("/some/where/iris.arff", class_index="last")
 cl = WekaCluster(classname="weka.clusterers.SimpleKMeans", options=["-N", "3"])
 clusters = cl.fit_predict(X)
 print("\nSimpleKMeans on iris\nclass label -> cluster")
@@ -98,7 +98,7 @@ for i in range(len(y)):
     print(y[i], "->", clusters[i])
 
 # preprocessing
-X, y, meta = load_arff("/some/where/bolts.arff", "last")
+X, y, meta = load_arff("/some/where/bolts.arff", class_index="last")
 tr = WekaTransformer(classname="weka.filters.unsupervised.attribute.Standardize", options=["-unset-class-temporarily"])
 X_new, y_new = tr.fit(X, y).transform(X, y)
 print("\nStandardize filter")
@@ -112,11 +112,11 @@ jvm.stop()
 
 See the example repository for more examples:
 
-http://github.com/fracpete/scikit-weka-examples
+http://github.com/fracpete/sklearn-weka-plugin-examples
 
 Direct links:
 
-* [classifiers](https://github.com/fracpete/scikit-weka-examples/blob/main/src/scikitwekaexamples/classifiers.py)
-* [clusters](https://github.com/fracpete/scikit-weka-examples/blob/main/src/scikitwekaexamples/clusters.py)
-* [preprocessing](https://github.com/fracpete/scikit-weka-examples/blob/main/src/scikitwekaexamples/preprocessing.py)
-* [pipeline](https://github.com/fracpete/scikit-weka-examples/blob/main/src/scikitwekaexamples/pipeline.py)
+* [classifiers](https://github.com/fracpete/sklearn-weka-plugin-examples/blob/main/src/sklwekaexamples/classifiers.py)
+* [clusters](https://github.com/fracpete/sklearn-weka-plugin-examples/blob/main/src/sklwekaexamples/clusters.py)
+* [preprocessing](https://github.com/fracpete/sklearn-weka-plugin-examples/blob/main/src/sklwekaexamples/preprocessing.py)
+* [pipeline](https://github.com/fracpete/sklearn-weka-plugin-examples/blob/main/src/sklwekaexamples/pipeline.py)
