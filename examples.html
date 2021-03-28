@@ -1,0 +1,224 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Examples &#8212; sklearn-weka-plugin 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="sklweka package" href="sklweka.html" />
+    <link rel="prev" title="Installation" href="install.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sklweka.html" title="sklweka package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="install.html" title="Installation"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">sklearn-weka-plugin 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Examples</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
+<p>The following examples are meant to be executed in sequence, as they rely on previous steps,
+e.g., on data present.</p>
+<div class="section" id="start-the-java-virtual-machine">
+<h2>Start the Java Virtual Machine<a class="headerlink" href="#start-the-java-virtual-machine" title="Permalink to this headline">¶</a></h2>
+<p><em>sklearn-weka-plugin</em> simply imports everything from <cite>weka.core.jvm</cite> into <cite>sklweka.jvm</cite> for convenience:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sklweka.jvm</span> <span class="k">as</span> <span class="nn">jvm</span>
+
+<span class="c1"># start JVM with Weka package support</span>
+<span class="n">jvm</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">packages</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="location-of-the-datasets">
+<h2>Location of the datasets<a class="headerlink" href="#location-of-the-datasets" title="Permalink to this headline">¶</a></h2>
+<p>The following examples assume the datasets to be present in the <cite>data_dir</cite> directory. For instance,
+this could be the following directory:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data_dir</span> <span class="o">=</span> <span class="s2">&quot;/my/datasets/&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="regression">
+<h2>Regression<a class="headerlink" href="#regression" title="Permalink to this headline">¶</a></h2>
+<p>Regression algorithms are available through the <cite>sklweka.classifiers.WekaEstimator</cite> wrapper:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklweka.dataset</span> <span class="kn">import</span> <span class="n">load_arff</span>
+<span class="kn">from</span> <span class="nn">sklweka.classifiers</span> <span class="kn">import</span> <span class="n">WekaEstimator</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">load_arff</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s2">&quot;/bolts.arff&quot;</span><span class="p">,</span> <span class="n">class_index</span><span class="o">=</span><span class="s2">&quot;last&quot;</span><span class="p">)</span>
+<span class="n">lr</span> <span class="o">=</span> <span class="n">WekaEstimator</span><span class="p">(</span><span class="n">classname</span><span class="o">=</span><span class="s2">&quot;weka.classifiers.functions.LinearRegression&quot;</span><span class="p">)</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">lr</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;neg_root_mean_squared_error&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cross-validating LR on bolts (negRMSE)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">scores</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="classification">
+<h2>Classification<a class="headerlink" href="#classification" title="Permalink to this headline">¶</a></h2>
+<p>Classification algorithms are also available through the <cite>sklweka.classifiers.WekaEstimator</cite> wrapper:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklweka.dataset</span> <span class="kn">import</span> <span class="n">load_arff</span><span class="p">,</span> <span class="n">to_nominal_labels</span>
+<span class="kn">from</span> <span class="nn">sklweka.classifiers</span> <span class="kn">import</span> <span class="n">WekaEstimator</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">load_arff</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s2">&quot;/iris.arff&quot;</span><span class="p">,</span> <span class="s2">&quot;class_index=last&quot;</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">to_nominal_labels</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="n">j48</span> <span class="o">=</span> <span class="n">WekaEstimator</span><span class="p">(</span><span class="n">classname</span><span class="o">=</span><span class="s2">&quot;weka.classifiers.trees.J48&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;-M&quot;</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="p">])</span>
+<span class="n">j48</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">j48</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">probas</span> <span class="o">=</span> <span class="n">j48</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">J48 on iris</span><span class="se">\n</span><span class="s2">actual label -&gt; predicted label, probabilities&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">scores</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">probas</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="clustering">
+<h2>Clustering<a class="headerlink" href="#clustering" title="Permalink to this headline">¶</a></h2>
+<p>Clustering algorithms are available through the <cite>sklweka.clusters.WekaCluster</cite> wrapper:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklweka.dataset</span> <span class="kn">import</span> <span class="n">load_arff</span>
+<span class="kn">from</span> <span class="nn">sklweka.clusters</span> <span class="kn">import</span> <span class="n">WekaCluster</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">load_arff</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s2">&quot;/iris.arff&quot;</span><span class="p">,</span> <span class="n">class_index</span><span class="o">=</span><span class="s2">&quot;last&quot;</span><span class="p">)</span>
+<span class="n">cl</span> <span class="o">=</span> <span class="n">WekaCluster</span><span class="p">(</span><span class="n">classname</span><span class="o">=</span><span class="s2">&quot;weka.clusterers.SimpleKMeans&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;-N&quot;</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="p">])</span>
+<span class="n">clusters</span> <span class="o">=</span> <span class="n">cl</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">SimpleKMeans on iris</span><span class="se">\n</span><span class="s2">class label -&gt; cluster&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">clusters</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="preprocessing">
+<h2>Preprocessing<a class="headerlink" href="#preprocessing" title="Permalink to this headline">¶</a></h2>
+<p>Weka filters can be applied by using the <cite>sklweka.preprocessing.WekaTransformer</cite> wrapper:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklweka.dataset</span> <span class="kn">import</span> <span class="n">load_arff</span>
+<span class="kn">from</span> <span class="nn">sklweka.preprocessing</span> <span class="kn">import</span> <span class="n">WekaTransformer</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">load_arff</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s2">&quot;/bolts.arff&quot;</span><span class="p">,</span> <span class="n">class_index</span><span class="o">=</span><span class="s2">&quot;last&quot;</span><span class="p">)</span>
+<span class="n">tr</span> <span class="o">=</span> <span class="n">WekaTransformer</span><span class="p">(</span><span class="n">classname</span><span class="o">=</span><span class="s2">&quot;weka.filters.unsupervised.attribute.Standardize&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;-unset-class-temporarily&quot;</span><span class="p">])</span>
+<span class="n">X_new</span><span class="p">,</span> <span class="n">y_new</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Standardize filter&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">transformed X:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">X_new</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">transformed y:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">y_new</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="stop-the-java-virtual-machine">
+<h2>Stop the Java Virtual Machine<a class="headerlink" href="#stop-the-java-virtual-machine" title="Permalink to this headline">¶</a></h2>
+<p>At end of your Python script, stop the JVM as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">jvm</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>NB:</strong> The JVM cannot be restarted within the same Python process, a drawback of the underlying
+<em>javabridge</em> library.</p>
+</div>
+<div class="section" id="additional-examples">
+<h2>Additional examples<a class="headerlink" href="#additional-examples" title="Permalink to this headline">¶</a></h2>
+<p>More examples can be found at:</p>
+<p><a class="reference external" href="http://github.com/fracpete/sklearn-weka-plugin-examples">github.com/fracpete/sklearn-weka-plugin-examples</a></p>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo.jpg" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Examples</a><ul>
+<li><a class="reference internal" href="#start-the-java-virtual-machine">Start the Java Virtual Machine</a></li>
+<li><a class="reference internal" href="#location-of-the-datasets">Location of the datasets</a></li>
+<li><a class="reference internal" href="#regression">Regression</a></li>
+<li><a class="reference internal" href="#classification">Classification</a></li>
+<li><a class="reference internal" href="#clustering">Clustering</a></li>
+<li><a class="reference internal" href="#preprocessing">Preprocessing</a></li>
+<li><a class="reference internal" href="#stop-the-java-virtual-machine">Stop the Java Virtual Machine</a></li>
+<li><a class="reference internal" href="#additional-examples">Additional examples</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="install.html"
+                        title="previous chapter">Installation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="sklweka.html"
+                        title="next chapter">sklweka package</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/examples.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sklweka.html" title="sklweka package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="install.html" title="Installation"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">sklearn-weka-plugin 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Examples</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Peter &#34;fracpete&#34; Reutemann.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
+    </div>
+  </body>
+</html>
