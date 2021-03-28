@@ -16,7 +16,7 @@ Currently available:
 
 Things to be aware of:
 
-* You need to start/stop the JVM in your Python code before you can use Weka.
+* You need to start the JVM in your Python code before you can use Weka (and stop it again).
 * Unlikely to work in multi-threaded/process environments (like flask).
 * Jupyter Notebooks does not play nice with javabridge, as you might have to restart the kernel in order to be able 
   to restart the JVM (e.g., with additional packages).
