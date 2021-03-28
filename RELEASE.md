@@ -17,6 +17,22 @@ rm dist/*
 ./venv/bin/twine upload dist/*
 ```
 
+Commands for updating github pages (requires Java 8!):
+
+```
+find -name "*~" -delete
+cd doc
+make html
+cd build/html
+cp -R * ../../../../sklearn-weka-plugin.gh-pages/
+cd ../../../../sklearn-weka-plugin.gh-pages/
+git pull origin gh-pages
+git add -A
+git commit -a -m "updated documentation"
+git rebase gh-pages
+git push origin gh-pages
+```
+
 
 Github
 ======
