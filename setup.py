@@ -1,4 +1,4 @@
-from setuptools import setup, find_namespace_packages
+from setuptools import setup
 
 
 def _read(f):
@@ -29,8 +29,7 @@ setup(
     package_dir={
         '': 'src'
     },
-    packages=find_namespace_packages(where='src'),
-    namespace_packages=[
+    packages=[
         "sklweka",
     ],
     version="0.0.1",
@@ -38,7 +37,7 @@ setup(
     author_email='sklweka@fracpete.org',
     install_requires=[
         "numpy",
-        "python-weka-wrapper3",
+        "python-weka-wrapper3>=0.2.0",
         "sklearn",
     ],
 )
