@@ -129,7 +129,7 @@ jvm.stop()
 
 See the example repository for more examples:
 
-http://github.com/fracpete/sklearn-weka-plugin-examples
+https://github.com/fracpete/sklearn-weka-plugin-examples
 
 Direct links:
 
