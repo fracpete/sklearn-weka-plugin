@@ -3,23 +3,11 @@ Installation
 
 Make sure you have a Java Development Kit (JDK) 8 or later (recommended is 11) installed.
 
-Create a virtual environment:
-
-.. code-block:: bash
-
-   $ virtualenv -p /usr/bin/python3.7 venv
-
-or using the *venv* module:
-
-.. code-block:: bash
-
-   $ python3 -m venv venv
-
-Install the *python-weka-wrapper3* library, see full instructions here:
+Install the *python-weka-wrapper3* library into a virtual environment; see full instructions here:
 
   `fracpete.github.io/python-weka-wrapper3/install.html <https://fracpete.github.io/python-weka-wrapper3/install.html>`__
 
-Install the *sklearn-weka-plugin* library itself:
+Install the *sklearn-weka-plugin* library itself into the same virtual environment:
 
 * latest release from PyPI
 
