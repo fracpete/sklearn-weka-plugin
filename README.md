@@ -38,23 +38,11 @@ The library has the following requirements:
 
 ## Installation
 
-* create virtual environment
-
-  ```commandline
-  virtualenv -p /usr/bin/python3.7 venv
-  ```
-  
-  or:
-  
-  ```commandline
-  python3 -m venv venv
-  ```
-
-* install the *python-weka-wrapper3* library, see instructions here:
+* install the *python-weka-wrapper3* library in a virtual environment, see instructions here:
 
   https://fracpete.github.io/python-weka-wrapper3/install.html
   
-* install the sklearn-weka-plugin  library itself
+* install the sklearn-weka-plugin library itself in the same virtual environment
 
   * latest release from PyPI
   
