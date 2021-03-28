@@ -25,6 +25,17 @@ Things to be aware of:
   from `sklweka.dataset` or the `MakeNominal` transformer from `sklweka.preprocessing`).
 
 
+## Requirements
+
+The library has the following requirements:
+
+* Python 3 (does not work with Python 2)
+
+  * python-weka-wrapper (>=0.2.0, required)
+
+* OpenJDK 8 or later (11 is recommended)
+
+
 ## Installation
 
 * create virtual environment
@@ -41,9 +52,15 @@ Things to be aware of:
 
 * install the *python-weka-wrapper3* library, see instructions here:
 
-  http://fracpete.github.io/python-weka-wrapper3/install.html
+  https://fracpete.github.io/python-weka-wrapper3/install.html
   
 * install the sklearn-weka-plugin  library itself
+
+  * latest release from PyPI
+  
+    ```commandline
+    ./venv/bin/pip install sklearn-weka-plugin
+    ```
 
   * from local source
 
