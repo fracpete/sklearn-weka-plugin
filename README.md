@@ -120,3 +120,10 @@ Direct links:
 * [clusters](https://github.com/fracpete/sklearn-weka-plugin-examples/blob/main/src/sklwekaexamples/clusters.py)
 * [preprocessing](https://github.com/fracpete/sklearn-weka-plugin-examples/blob/main/src/sklwekaexamples/preprocessing.py)
 * [pipeline](https://github.com/fracpete/sklearn-weka-plugin-examples/blob/main/src/sklwekaexamples/pipeline.py)
+
+## Documentation
+
+You can find the project documentation here:
+
+https://fracpete.github.io/sklearn-weka-plugin/
+
