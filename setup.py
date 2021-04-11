@@ -32,7 +32,7 @@ setup(
     packages=[
         "sklweka",
     ],
-    version="0.0.1",
+    version="0.0.2",
     author='Peter "fracpete" Reutemann',
     author_email='sklweka@fracpete.org',
     install_requires=[
