@@ -37,7 +37,7 @@ setup(
     author_email='sklweka@fracpete.org',
     install_requires=[
         "numpy",
-        "python-weka-wrapper3>=0.2.0",
+        "python-weka-wrapper3>=0.2.1",
         "sklearn",
     ],
 )
