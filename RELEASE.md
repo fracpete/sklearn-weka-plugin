@@ -4,6 +4,7 @@ PyPi
 Preparation:
 
 * increment version in `setup.py`
+* increment versions/copyright in `doc/source/conf.py`
 * add new changelog section in `CHANGES.rst`
 * commit/push all changes
 
