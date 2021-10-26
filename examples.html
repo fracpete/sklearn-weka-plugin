@@ -4,12 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Examples &#8212; sklearn-weka-plugin 0.0.2 documentation</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Examples &#8212; sklearn-weka-plugin 0.0.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
@@ -34,7 +35,7 @@
         <li class="right" >
           <a href="install.html" title="Installation"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">sklearn-weka-plugin 0.0.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">sklearn-weka-plugin 0.0.3 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Examples</a></li> 
       </ul>
     </div>  
@@ -44,11 +45,11 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="examples">
+  <section id="examples">
 <h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
 <p>The following examples are meant to be executed in sequence, as they rely on previous steps,
 e.g., on data present.</p>
-<div class="section" id="start-the-java-virtual-machine">
+<section id="start-the-java-virtual-machine">
 <h2>Start the Java Virtual Machine<a class="headerlink" href="#start-the-java-virtual-machine" title="Permalink to this headline">¶</a></h2>
 <p><em>sklearn-weka-plugin</em> simply imports everything from <cite>weka.core.jvm</cite> into <cite>sklweka.jvm</cite> for convenience:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sklweka.jvm</span> <span class="k">as</span> <span class="nn">jvm</span>
@@ -57,16 +58,16 @@ e.g., on data present.</p>
 <span class="n">jvm</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">packages</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="location-of-the-datasets">
+</section>
+<section id="location-of-the-datasets">
 <h2>Location of the datasets<a class="headerlink" href="#location-of-the-datasets" title="Permalink to this headline">¶</a></h2>
 <p>The following examples assume the datasets to be present in the <cite>data_dir</cite> directory. For instance,
 this could be the following directory:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data_dir</span> <span class="o">=</span> <span class="s2">&quot;/my/datasets/&quot;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="regression">
+</section>
+<section id="regression">
 <h2>Regression<a class="headerlink" href="#regression" title="Permalink to this headline">¶</a></h2>
 <p>Regression algorithms are available through the <cite>sklweka.classifiers.WekaEstimator</cite> wrapper:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklweka.dataset</span> <span class="kn">import</span> <span class="n">load_arff</span>
@@ -79,8 +80,8 @@ this could be the following directory:</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cross-validating LR on bolts (negRMSE)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">scores</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="classification">
+</section>
+<section id="classification">
 <h2>Classification<a class="headerlink" href="#classification" title="Permalink to this headline">¶</a></h2>
 <p>Classification algorithms are also available through the <cite>sklweka.classifiers.WekaEstimator</cite> wrapper:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklweka.dataset</span> <span class="kn">import</span> <span class="n">load_arff</span><span class="p">,</span> <span class="n">to_nominal_labels</span>
@@ -98,8 +99,8 @@ this could be the following directory:</p>
     <span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">scores</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">probas</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="clustering">
+</section>
+<section id="clustering">
 <h2>Clustering<a class="headerlink" href="#clustering" title="Permalink to this headline">¶</a></h2>
 <p>Clustering algorithms are available through the <cite>sklweka.clusters.WekaCluster</cite> wrapper:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklweka.dataset</span> <span class="kn">import</span> <span class="n">load_arff</span>
@@ -113,8 +114,8 @@ this could be the following directory:</p>
     <span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">clusters</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="preprocessing">
+</section>
+<section id="preprocessing">
 <h2>Preprocessing<a class="headerlink" href="#preprocessing" title="Permalink to this headline">¶</a></h2>
 <p>Weka filters can be applied by using the <cite>sklweka.preprocessing.WekaTransformer</cite> wrapper:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklweka.dataset</span> <span class="kn">import</span> <span class="n">load_arff</span>
@@ -128,8 +129,24 @@ this could be the following directory:</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">transformed y:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">y_new</span><span class="p">)</span>
 </pre></div>
 </div>
+</section>
+<section id="data-generators">
+<h2>Data generators<a class="headerlink" href="#data-generators" title="Permalink to this headline">¶</a></h2>
+<p>Weka’s data generators can be used for generating numpy arrays as well:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklweka.datagenerators</span> <span class="kn">import</span> <span class="n">DataGenerator</span><span class="p">,</span> <span class="n">generate_data</span>
+
+<span class="n">gen</span> <span class="o">=</span> <span class="n">DataGenerator</span><span class="p">(</span>
+    <span class="n">classname</span><span class="o">=</span><span class="s2">&quot;weka.datagenerators.classifiers.classification.BayesNet&quot;</span><span class="p">,</span>
+    <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;-S&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="s2">&quot;-n&quot;</span><span class="p">,</span> <span class="s2">&quot;10&quot;</span><span class="p">,</span> <span class="s2">&quot;-C&quot;</span><span class="p">,</span> <span class="s2">&quot;10&quot;</span><span class="p">])</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">X_names</span><span class="p">,</span> <span class="n">y_name</span> <span class="o">=</span> <span class="n">generate_data</span><span class="p">(</span><span class="n">gen</span><span class="p">,</span> <span class="n">att_names</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;X:&quot;</span><span class="p">,</span> <span class="n">X_names</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;y:&quot;</span><span class="p">,</span> <span class="n">y_name</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
 </div>
-<div class="section" id="stop-the-java-virtual-machine">
+</section>
+<section id="stop-the-java-virtual-machine">
 <h2>Stop the Java Virtual Machine<a class="headerlink" href="#stop-the-java-virtual-machine" title="Permalink to this headline">¶</a></h2>
 <p>At end of your Python script, stop the JVM as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">jvm</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
@@ -137,13 +154,13 @@ this could be the following directory:</p>
 </div>
 <p><strong>NB:</strong> The JVM cannot be restarted within the same Python process, a drawback of the underlying
 <em>javabridge</em> library.</p>
-</div>
-<div class="section" id="additional-examples">
+</section>
+<section id="additional-examples">
 <h2>Additional examples<a class="headerlink" href="#additional-examples" title="Permalink to this headline">¶</a></h2>
 <p>More examples can be found at:</p>
 <p><a class="reference external" href="http://github.com/fracpete/sklearn-weka-plugin-examples">github.com/fracpete/sklearn-weka-plugin-examples</a></p>
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -164,6 +181,7 @@ this could be the following directory:</p>
 <li><a class="reference internal" href="#classification">Classification</a></li>
 <li><a class="reference internal" href="#clustering">Clustering</a></li>
 <li><a class="reference internal" href="#preprocessing">Preprocessing</a></li>
+<li><a class="reference internal" href="#data-generators">Data generators</a></li>
 <li><a class="reference internal" href="#stop-the-java-virtual-machine">Stop the Java Virtual Machine</a></li>
 <li><a class="reference internal" href="#additional-examples">Additional examples</a></li>
 </ul>
@@ -187,7 +205,7 @@ this could be the following directory:</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -212,13 +230,13 @@ this could be the following directory:</p>
         <li class="right" >
           <a href="install.html" title="Installation"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">sklearn-weka-plugin 0.0.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">sklearn-weka-plugin 0.0.3 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Examples</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2021, Peter &#34;fracpete&#34; Reutemann.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
     </div>
   </body>
 </html>

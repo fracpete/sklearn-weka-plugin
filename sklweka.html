@@ -4,12 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>sklweka package &#8212; sklearn-weka-plugin 0.0.2 documentation</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>sklweka package &#8212; sklearn-weka-plugin 0.0.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
@@ -30,7 +31,7 @@
         <li class="right" >
           <a href="examples.html" title="Examples"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">sklearn-weka-plugin 0.0.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">sklearn-weka-plugin 0.0.3 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">sklweka package</a></li> 
       </ul>
     </div>  
@@ -40,18 +41,18 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="sklweka-package">
+  <section id="sklweka-package">
 <h1>sklweka package<a class="headerlink" href="#sklweka-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="module-sklweka.classifiers">
+<section id="module-sklweka.classifiers">
 <span id="sklweka-classifiers-module"></span><h2>sklweka.classifiers module<a class="headerlink" href="#module-sklweka.classifiers" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="sklweka.classifiers.WekaEstimator">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sklweka.classifiers.</span></code><code class="sig-name descname"><span class="pre">WekaEstimator</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.classifiers.WekaEstimator" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.classifiers.WekaEstimator">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklweka.classifiers.</span></span><span class="sig-name descname"><span class="pre">WekaEstimator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.classifiers.WekaEstimator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">weka.core.classes.</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.</span></code></p>
 <p>Wraps a Weka classifier (classifier/regressor) within the scikit-learn framework.</p>
-<dl class="py method">
-<dt id="sklweka.classifiers.WekaEstimator.classifier">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">classifier</span></code><a class="headerlink" href="#sklweka.classifiers.WekaEstimator.classifier" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="sklweka.classifiers.WekaEstimator.classifier">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">classifier</span></span><a class="headerlink" href="#sklweka.classifiers.WekaEstimator.classifier" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the underlying classifier object, if any.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -64,8 +65,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="sklweka.classifiers.WekaEstimator.fit">
-<code class="sig-name descname"><span class="pre">fit</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.classifiers.WekaEstimator.fit" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.classifiers.WekaEstimator.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.classifiers.WekaEstimator.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Trains the estimator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -84,8 +85,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="sklweka.classifiers.WekaEstimator.get_params">
-<code class="sig-name descname"><span class="pre">get_params</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.classifiers.WekaEstimator.get_params" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.classifiers.WekaEstimator.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.classifiers.WekaEstimator.get_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the parameters for this classifier, basically classname and options list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -100,9 +101,9 @@
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt id="sklweka.classifiers.WekaEstimator.header">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">header</span></code><a class="headerlink" href="#sklweka.classifiers.WekaEstimator.header" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="sklweka.classifiers.WekaEstimator.header">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">header</span></span><a class="headerlink" href="#sklweka.classifiers.WekaEstimator.header" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the underlying dataset header, if any.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -115,8 +116,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="sklweka.classifiers.WekaEstimator.predict">
-<code class="sig-name descname"><span class="pre">predict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.classifiers.WekaEstimator.predict" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.classifiers.WekaEstimator.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.classifiers.WekaEstimator.predict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs predictions with the trained classifier.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -132,8 +133,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="sklweka.classifiers.WekaEstimator.predict_proba">
-<code class="sig-name descname"><span class="pre">predict_proba</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.classifiers.WekaEstimator.predict_proba" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.classifiers.WekaEstimator.predict_proba">
+<span class="sig-name descname"><span class="pre">predict_proba</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.classifiers.WekaEstimator.predict_proba" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs predictions and returns class probabilities.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -146,8 +147,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="sklweka.classifiers.WekaEstimator.set_params">
-<code class="sig-name descname"><span class="pre">set_params</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.classifiers.WekaEstimator.set_params" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.classifiers.WekaEstimator.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.classifiers.WekaEstimator.set_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the options for the classifier, expects ‘classname’ and ‘options’.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -158,17 +159,17 @@
 
 </dd></dl>
 
-</div>
-<div class="section" id="module-sklweka.clusters">
+</section>
+<section id="module-sklweka.clusters">
 <span id="sklweka-clusters-module"></span><h2>sklweka.clusters module<a class="headerlink" href="#module-sklweka.clusters" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="sklweka.clusters.WekaCluster">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sklweka.clusters.</span></code><code class="sig-name descname"><span class="pre">WekaCluster</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jobject</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cluster</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.clusters.WekaCluster" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.clusters.WekaCluster">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklweka.clusters.</span></span><span class="sig-name descname"><span class="pre">WekaCluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jobject</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cluster</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.clusters.WekaCluster" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">weka.core.classes.OptionHandler</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.ClusterMixin</span></code></p>
 <p>Wraps a Weka cluster within the scikit-learn framework.</p>
-<dl class="py method">
-<dt id="sklweka.clusters.WekaCluster.cluster">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">cluster</span></code><a class="headerlink" href="#sklweka.clusters.WekaCluster.cluster" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="sklweka.clusters.WekaCluster.cluster">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">cluster</span></span><a class="headerlink" href="#sklweka.clusters.WekaCluster.cluster" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the underlying cluster object, if any.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -181,8 +182,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="sklweka.clusters.WekaCluster.fit">
-<code class="sig-name descname"><span class="pre">fit</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.clusters.WekaCluster.fit" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.clusters.WekaCluster.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.clusters.WekaCluster.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Trains the cluster.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -201,8 +202,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="sklweka.clusters.WekaCluster.fit_predict">
-<code class="sig-name descname"><span class="pre">fit_predict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.clusters.WekaCluster.fit_predict" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.clusters.WekaCluster.fit_predict">
+<span class="sig-name descname"><span class="pre">fit_predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.clusters.WekaCluster.fit_predict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Trains the cluster and returns the cluster labels.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -221,8 +222,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="sklweka.clusters.WekaCluster.get_params">
-<code class="sig-name descname"><span class="pre">get_params</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.clusters.WekaCluster.get_params" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.clusters.WekaCluster.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.clusters.WekaCluster.get_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the parameters for this cluster, basically classname and options list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -237,9 +238,9 @@
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt id="sklweka.clusters.WekaCluster.header">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">header</span></code><a class="headerlink" href="#sklweka.clusters.WekaCluster.header" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="sklweka.clusters.WekaCluster.header">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">header</span></span><a class="headerlink" href="#sklweka.clusters.WekaCluster.header" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the underlying dataset header, if any.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -252,8 +253,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="sklweka.clusters.WekaCluster.predict">
-<code class="sig-name descname"><span class="pre">predict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.clusters.WekaCluster.predict" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.clusters.WekaCluster.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.clusters.WekaCluster.predict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Predicts cluster labels.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -272,8 +273,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="sklweka.clusters.WekaCluster.set_params">
-<code class="sig-name descname"><span class="pre">set_params</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.clusters.WekaCluster.set_params" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.clusters.WekaCluster.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.clusters.WekaCluster.set_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the options for the cluster, expects ‘classname’ and ‘options’.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -284,12 +285,12 @@
 
 </dd></dl>
 
-</div>
-<div class="section" id="module-sklweka.dataset">
+</section>
+<section id="module-sklweka.dataset">
 <span id="sklweka-dataset-module"></span><h2>sklweka.dataset module<a class="headerlink" href="#module-sklweka.dataset" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt id="sklweka.dataset.determine_attribute_type">
-<code class="sig-prename descclassname"><span class="pre">sklweka.dataset.</span></code><code class="sig-name descname"><span class="pre">determine_attribute_type</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.dataset.determine_attribute_type" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.dataset.determine_attribute_type">
+<span class="sig-prename descclassname"><span class="pre">sklweka.dataset.</span></span><span class="sig-name descname"><span class="pre">determine_attribute_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.dataset.determine_attribute_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines the type of the column.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -305,8 +306,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="sklweka.dataset.determine_attribute_types">
-<code class="sig-prename descclassname"><span class="pre">sklweka.dataset.</span></code><code class="sig-name descname"><span class="pre">determine_attribute_types</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.dataset.determine_attribute_types" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.dataset.determine_attribute_types">
+<span class="sig-prename descclassname"><span class="pre">sklweka.dataset.</span></span><span class="sig-name descname"><span class="pre">determine_attribute_types</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.dataset.determine_attribute_types" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines the type of the columns.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -322,8 +323,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="sklweka.dataset.load_arff">
-<code class="sig-prename descclassname"><span class="pre">sklweka.dataset.</span></code><code class="sig-name descname"><span class="pre">load_arff</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.dataset.load_arff" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.dataset.load_arff">
+<span class="sig-prename descclassname"><span class="pre">sklweka.dataset.</span></span><span class="sig-name descname"><span class="pre">load_arff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.dataset.load_arff" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads the specified ARFF file. If a class index is provided, either 0-based int or 1-based string
 (first,second,last,last-1 are accepted as well), then the data is split into input variables and
 class attribute.</p>
@@ -344,8 +345,8 @@ class attribute.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="sklweka.dataset.split_off_class">
-<code class="sig-prename descclassname"><span class="pre">sklweka.dataset.</span></code><code class="sig-name descname"><span class="pre">split_off_class</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.dataset.split_off_class" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.dataset.split_off_class">
+<span class="sig-prename descclassname"><span class="pre">sklweka.dataset.</span></span><span class="sig-name descname"><span class="pre">split_off_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.dataset.split_off_class" title="Permalink to this definition">¶</a></dt>
 <dd><p>Splits off the class attribute from the data matrix.
 The class index can either be a 0-based int or a 1-based string
 (first,second,last,last-1 are accepted as well).</p>
@@ -363,8 +364,8 @@ The class index can either be a 0-based int or a 1-based string
 </dd></dl>
 
 <dl class="py function">
-<dt id="sklweka.dataset.to_array">
-<code class="sig-prename descclassname"><span class="pre">sklweka.dataset.</span></code><code class="sig-name descname"><span class="pre">to_array</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.dataset.to_array" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.dataset.to_array">
+<span class="sig-prename descclassname"><span class="pre">sklweka.dataset.</span></span><span class="sig-name descname"><span class="pre">to_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.dataset.to_array" title="Permalink to this definition">¶</a></dt>
 <dd><p>Turns the Instances object into ndarrays for X and y. If no class is present, then y will be None.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -380,8 +381,8 @@ The class index can either be a 0-based int or a 1-based string
 </dd></dl>
 
 <dl class="py function">
-<dt id="sklweka.dataset.to_instance">
-<code class="sig-prename descclassname"><span class="pre">sklweka.dataset.</span></code><code class="sig-name descname"><span class="pre">to_instance</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">header</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.dataset.to_instance" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.dataset.to_instance">
+<span class="sig-prename descclassname"><span class="pre">sklweka.dataset.</span></span><span class="sig-name descname"><span class="pre">to_instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">header</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.dataset.to_instance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates an Instance from the data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -402,8 +403,8 @@ The class index can either be a 0-based int or a 1-based string
 </dd></dl>
 
 <dl class="py function">
-<dt id="sklweka.dataset.to_instances">
-<code class="sig-prename descclassname"><span class="pre">sklweka.dataset.</span></code><code class="sig-name descname"><span class="pre">to_instances</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">att_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">att_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relation_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.dataset.to_instances" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.dataset.to_instances">
+<span class="sig-prename descclassname"><span class="pre">sklweka.dataset.</span></span><span class="sig-name descname"><span class="pre">to_instances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">att_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">att_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relation_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.dataset.to_instances" title="Permalink to this definition">¶</a></dt>
 <dd><p>Turns the 2D matrix and the optional 1D class vector into an Instances object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -427,8 +428,8 @@ The class index can either be a 0-based int or a 1-based string
 </dd></dl>
 
 <dl class="py function">
-<dt id="sklweka.dataset.to_nominal_attributes">
-<code class="sig-prename descclassname"><span class="pre">sklweka.dataset.</span></code><code class="sig-name descname"><span class="pre">to_nominal_attributes</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.dataset.to_nominal_attributes" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.dataset.to_nominal_attributes">
+<span class="sig-prename descclassname"><span class="pre">sklweka.dataset.</span></span><span class="sig-name descname"><span class="pre">to_nominal_attributes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.dataset.to_nominal_attributes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Turns the numeric column vector into a string vector.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -447,8 +448,8 @@ The class index can either be a 0-based int or a 1-based string
 </dd></dl>
 
 <dl class="py function">
-<dt id="sklweka.dataset.to_nominal_labels">
-<code class="sig-prename descclassname"><span class="pre">sklweka.dataset.</span></code><code class="sig-name descname"><span class="pre">to_nominal_labels</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.dataset.to_nominal_labels" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.dataset.to_nominal_labels">
+<span class="sig-prename descclassname"><span class="pre">sklweka.dataset.</span></span><span class="sig-name descname"><span class="pre">to_nominal_labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.dataset.to_nominal_labels" title="Permalink to this definition">¶</a></dt>
 <dd><p>Turns the numeric column vector into a string vector.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -463,17 +464,17 @@ The class index can either be a 0-based int or a 1-based string
 </dl>
 </dd></dl>
 
-</div>
-<div class="section" id="module-sklweka.preprocessing">
+</section>
+<section id="module-sklweka.preprocessing">
 <span id="sklweka-preprocessing-module"></span><h2>sklweka.preprocessing module<a class="headerlink" href="#module-sklweka.preprocessing" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="sklweka.preprocessing.MakeNominal">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sklweka.preprocessing.</span></code><code class="sig-name descname"><span class="pre">MakeNominal</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_vars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.preprocessing.MakeNominal" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.preprocessing.MakeNominal">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklweka.preprocessing.</span></span><span class="sig-name descname"><span class="pre">MakeNominal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_vars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.preprocessing.MakeNominal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.TransformerMixin</span></code></p>
 <p>Converts numeric columns to nominal ones (ie string labels).</p>
 <dl class="py method">
-<dt id="sklweka.preprocessing.MakeNominal.fit">
-<code class="sig-name descname"><span class="pre">fit</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.preprocessing.MakeNominal.fit" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.preprocessing.MakeNominal.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.preprocessing.MakeNominal.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Trains the estimator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -492,8 +493,8 @@ The class index can either be a 0-based int or a 1-based string
 </dd></dl>
 
 <dl class="py method">
-<dt id="sklweka.preprocessing.MakeNominal.get_params">
-<code class="sig-name descname"><span class="pre">get_params</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.preprocessing.MakeNominal.get_params" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.preprocessing.MakeNominal.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.preprocessing.MakeNominal.get_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the parameters for this classifier, basically classname and options list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -508,9 +509,9 @@ The class index can either be a 0-based int or a 1-based string
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt id="sklweka.preprocessing.MakeNominal.input_vars">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">input_vars</span></code><a class="headerlink" href="#sklweka.preprocessing.MakeNominal.input_vars" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="sklweka.preprocessing.MakeNominal.input_vars">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">input_vars</span></span><a class="headerlink" href="#sklweka.preprocessing.MakeNominal.input_vars" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the 0-based indices of the input variables to convert.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -522,9 +523,9 @@ The class index can either be a 0-based int or a 1-based string
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt id="sklweka.preprocessing.MakeNominal.output_vars">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">output_vars</span></code><a class="headerlink" href="#sklweka.preprocessing.MakeNominal.output_vars" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="sklweka.preprocessing.MakeNominal.output_vars">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">output_vars</span></span><a class="headerlink" href="#sklweka.preprocessing.MakeNominal.output_vars" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns whether the output variable gets converted as well.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -537,8 +538,8 @@ The class index can either be a 0-based int or a 1-based string
 </dd></dl>
 
 <dl class="py method">
-<dt id="sklweka.preprocessing.MakeNominal.set_params">
-<code class="sig-name descname"><span class="pre">set_params</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.preprocessing.MakeNominal.set_params" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.preprocessing.MakeNominal.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.preprocessing.MakeNominal.set_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the options for the classifier, expects ‘classname’ and ‘options’.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -548,8 +549,8 @@ The class index can either be a 0-based int or a 1-based string
 </dd></dl>
 
 <dl class="py method">
-<dt id="sklweka.preprocessing.MakeNominal.transform">
-<code class="sig-name descname"><span class="pre">transform</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.preprocessing.MakeNominal.transform" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.preprocessing.MakeNominal.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.preprocessing.MakeNominal.transform" title="Permalink to this definition">¶</a></dt>
 <dd><p>Filters the data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -570,13 +571,13 @@ The class index can either be a 0-based int or a 1-based string
 </dd></dl>
 
 <dl class="py class">
-<dt id="sklweka.preprocessing.WekaTransformer">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sklweka.preprocessing.</span></code><code class="sig-name descname"><span class="pre">WekaTransformer</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jobject</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.preprocessing.WekaTransformer" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.preprocessing.WekaTransformer">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklweka.preprocessing.</span></span><span class="sig-name descname"><span class="pre">WekaTransformer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jobject</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.preprocessing.WekaTransformer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">weka.core.classes.OptionHandler</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.TransformerMixin</span></code></p>
 <p>Wraps a Weka filter within the scikit-learn framework.</p>
-<dl class="py method">
-<dt id="sklweka.preprocessing.WekaTransformer.filter">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">filter</span></code><a class="headerlink" href="#sklweka.preprocessing.WekaTransformer.filter" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="sklweka.preprocessing.WekaTransformer.filter">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">filter</span></span><a class="headerlink" href="#sklweka.preprocessing.WekaTransformer.filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the underlying filter object, if any.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -589,8 +590,8 @@ The class index can either be a 0-based int or a 1-based string
 </dd></dl>
 
 <dl class="py method">
-<dt id="sklweka.preprocessing.WekaTransformer.fit">
-<code class="sig-name descname"><span class="pre">fit</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.preprocessing.WekaTransformer.fit" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.preprocessing.WekaTransformer.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.preprocessing.WekaTransformer.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Trains the estimator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -609,8 +610,8 @@ The class index can either be a 0-based int or a 1-based string
 </dd></dl>
 
 <dl class="py method">
-<dt id="sklweka.preprocessing.WekaTransformer.get_params">
-<code class="sig-name descname"><span class="pre">get_params</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.preprocessing.WekaTransformer.get_params" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.preprocessing.WekaTransformer.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.preprocessing.WekaTransformer.get_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the parameters for this classifier, basically classname and options list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -625,9 +626,9 @@ The class index can either be a 0-based int or a 1-based string
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt id="sklweka.preprocessing.WekaTransformer.header">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">header</span></code><a class="headerlink" href="#sklweka.preprocessing.WekaTransformer.header" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="sklweka.preprocessing.WekaTransformer.header">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">header</span></span><a class="headerlink" href="#sklweka.preprocessing.WekaTransformer.header" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the underlying dataset header, if any.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -640,8 +641,8 @@ The class index can either be a 0-based int or a 1-based string
 </dd></dl>
 
 <dl class="py method">
-<dt id="sklweka.preprocessing.WekaTransformer.set_params">
-<code class="sig-name descname"><span class="pre">set_params</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.preprocessing.WekaTransformer.set_params" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.preprocessing.WekaTransformer.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.preprocessing.WekaTransformer.set_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the options for the classifier, expects ‘classname’ and ‘options’.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -651,8 +652,8 @@ The class index can either be a 0-based int or a 1-based string
 </dd></dl>
 
 <dl class="py method">
-<dt id="sklweka.preprocessing.WekaTransformer.transform">
-<code class="sig-name descname"><span class="pre">transform</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.preprocessing.WekaTransformer.transform" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sklweka.preprocessing.WekaTransformer.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.preprocessing.WekaTransformer.transform" title="Permalink to this definition">¶</a></dt>
 <dd><p>Filters the data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -672,8 +673,8 @@ The class index can either be a 0-based int or a 1-based string
 
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -710,7 +711,7 @@ The class index can either be a 0-based int or a 1-based string
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -732,13 +733,13 @@ The class index can either be a 0-based int or a 1-based string
         <li class="right" >
           <a href="examples.html" title="Examples"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">sklearn-weka-plugin 0.0.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">sklearn-weka-plugin 0.0.3 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">sklweka package</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2021, Peter &#34;fracpete&#34; Reutemann.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
     </div>
   </body>
 </html>
