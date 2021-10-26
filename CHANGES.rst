@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.0.3 (????-??-??)
+0.0.3 (2021-10-26)
 ------------------
 
 - added support for generating data via Weka's data generators
