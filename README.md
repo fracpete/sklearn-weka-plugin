@@ -73,6 +73,7 @@ from sklweka.classifiers import WekaEstimator
 from sklweka.clusters import WekaCluster
 from sklweka.preprocessing import WekaTransformer
 from sklearn.model_selection import cross_val_score
+from sklweka.datagenerators import DataGenerator, generate_data
 
 # start JVM with Weka package support
 jvm.start(packages=True)
@@ -110,6 +111,16 @@ print("\nStandardize filter")
 print("\ntransformed X:\n", X_new)
 print("\ntransformed y:\n", y_new)
 
+# generate data
+gen = DataGenerator(
+    classname="weka.datagenerators.classifiers.classification.BayesNet",
+    options=["-S", "2", "-n", "10", "-C", "10"])
+X, y, X_names, y_name = generate_data(gen, att_names=True)
+print("X:", X_names)
+print(X)
+print("y:", y_name)
+print(y)
+
 # stop JVM
 jvm.stop()
 ```
@@ -124,6 +135,7 @@ Direct links:
 * [classifiers](https://github.com/fracpete/sklearn-weka-plugin-examples/blob/main/src/sklwekaexamples/classifiers.py)
 * [clusters](https://github.com/fracpete/sklearn-weka-plugin-examples/blob/main/src/sklwekaexamples/clusters.py)
 * [preprocessing](https://github.com/fracpete/sklearn-weka-plugin-examples/blob/main/src/sklwekaexamples/preprocessing.py)
+* [datagenerators](https://github.com/fracpete/sklearn-weka-plugin-examples/blob/main/src/sklwekaexamples/datagenerators.py)
 * [pipeline](https://github.com/fracpete/sklearn-weka-plugin-examples/blob/main/src/sklwekaexamples/pipeline.py)
 
 ## Documentation

@@ -4,7 +4,7 @@ Changelog
 0.0.3 (????-??-??)
 ------------------
 
-- ...
+- added support for generating data via Weka's data generators
 
 
 0.0.2 (2021-04-12)
