@@ -104,6 +104,25 @@ Weka filters can be applied by using the `sklweka.preprocessing.WekaTransformer`
    print("\ntransformed y:\n", y_new)
 
 
+Data generators
+---------------
+
+Weka's data generators can be used for generating numpy arrays as well:
+
+.. code-block:: python
+
+   from sklweka.datagenerators import DataGenerator, generate_data
+
+   gen = DataGenerator(
+       classname="weka.datagenerators.classifiers.classification.BayesNet",
+       options=["-S", "2", "-n", "10", "-C", "10"])
+   X, y, X_names, y_name = generate_data(gen, att_names=True)
+   print("X:", X_names)
+   print(X)
+   print("y:", y_name)
+   print(y)
+
+
 Stop the Java Virtual Machine
 -----------------------------
 
