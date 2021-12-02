@@ -85,7 +85,7 @@ scores = cross_val_score(lr, X, y, cv=10, scoring='neg_root_mean_squared_error')
 print("Cross-validating LR on bolts (negRMSE)\n", scores)
 
 # classification
-X, y, meta = load_arff("/some/where/iris.arff", "class_index=last")
+X, y, meta = load_arff("/some/where/iris.arff", class_index="last")
 y = to_nominal_labels(y)
 j48 = WekaEstimator(classname="weka.classifiers.trees.J48", options=["-M", "3"])
 j48.fit(X, y)
