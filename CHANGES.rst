@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.0.4 (????-??-??)
+------------------
+
+- fixed sorting of labels in `to_instances` method in module `sklweka.dataset`
+- redoing `X` when no class present in `load_arff` method (module `sklweka.dataset`)
+
+
 0.0.3 (2021-10-26)
 ------------------
 

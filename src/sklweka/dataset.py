@@ -116,9 +116,11 @@ def load_arff(fname, class_index=None):
     """
     data, meta = loadarff(fname)
     if class_index is None:
-        return np.array(data), meta
-    X, y = split_off_class(data, class_index)
-    return X, y, meta
+        X = np.array([list(r) for r in data])
+        return np.array(X), meta
+    else:
+        X, y = split_off_class(data, class_index)
+        return X, y, meta
 
 
 def determine_attribute_types(X):
@@ -230,7 +232,7 @@ def to_instances(X, y=None, att_names=None, att_types=None, class_name=None, cla
                 r = X[n]
                 v = str(r[i])
                 labels.add(v)
-            values = sorted(set)
+            values = sorted(labels)
             atts.append(Attribute.create_nominal(att_name, values))
         else:
             raise Exception("Unsupported attribute type for column %d: %s" % ((i+1), att_type))
