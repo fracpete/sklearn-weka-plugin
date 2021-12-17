@@ -2,7 +2,7 @@
 Makes [Weka](https://www.cs.waikato.ac.nz/ml/weka/) algorithms available in [scikit-learn](https://scikit-learn.org/).
 
 Built on top of the [python-weka-wrapper3](https://github.com/fracpete/python-weka-wrapper3) 
-library, it uses the [javabridge](https://pypi.python.org/pypi/javabridge) library
+library, it uses the [python-javabridge](https://pypi.python.org/pypi/python-javabridge) library
 under the hood for communicating with Weka objects in the Java Virtual Machine.
 
 
@@ -18,7 +18,7 @@ Things to be aware of:
 
 * You need to start the JVM in your Python code before you can use Weka (and stop it again).
 * Unlikely to work in multi-threaded/process environments (like flask).
-* Jupyter Notebooks does not play nice with javabridge, as you might have to restart the kernel in order to be able 
+* Jupyter Notebooks do not play nice with python-javabridge, as you might have to restart the kernel in order to be able 
   to restart the JVM (e.g., with additional packages).
 * The conversion to Weka data structures involves guesswork, i.e., if targets are to be treated as nominal, you need 
   to convert the numeric values to strings (e.g., using `to_nominal_labels` and/or `to_nominal_attributes` functions 
