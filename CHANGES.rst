@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.0.4 (????-??-??)
+0.0.4 (2021-12-17)
 ------------------
 
 - fixed sorting of labels in `to_instances` method in module `sklweka.dataset`
