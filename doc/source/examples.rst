@@ -29,6 +29,21 @@ this could be the following directory:
    data_dir = "/my/datasets/"
 
 
+Loading data
+------------
+
+There are two methods available from the `sklweka.dataset` module for loading data:
+
+* `load_arff` - uses the from `loadarff` method from the `scipy.io.arff` module
+  (can't handle string attributes). Nominal classes have to be converted using
+  the `to_nominal_labels` method.
+* `load_dataset` - uses Weka's own data loading functionality before converting it
+  into sklearn data structures, i.e., numpy matrices. Bit slower due to data conversion,
+  but handles string attributes. Also not limited to ARFF files. The data can be
+  either returned with mixed types (not necessary to use the `to_nominal_labels` method
+  therefore) or in Weka's internal, numeric-only data format.
+
+
 Regression
 ----------
 
@@ -53,12 +68,16 @@ Classification algorithms are also available through the `sklweka.classifiers.We
 
 .. code-block:: python
 
-   from sklweka.dataset import load_arff, to_nominal_labels
+   from sklweka.dataset import load_arff, to_nominal_labels, load_dataset
    from sklweka.classifiers import WekaEstimator
    from sklearn.model_selection import cross_val_score
 
+   # using the load_arff method:
    X, y, meta = load_arff(data_dir + "/iris.arff", "class_index=last")
    y = to_nominal_labels(y)
+   # using the load_dataset method:
+   # X, y = load_dataset(data_dir + "/iris.arff", "class_index=last")
+
    j48 = WekaEstimator(classname="weka.classifiers.trees.J48", options=["-M", "3"])
    j48.fit(X, y)
    scores = j48.predict(X)

@@ -2,6 +2,7 @@ from scipy.io.arff import loadarff
 from weka.core.dataset import Instances, Instance, Attribute
 from datetime import datetime
 from weka.core.dataset import missing_value
+from weka.core.converters import loader_for_file, Loader
 import numpy as np
 from numpy import ndarray
 
@@ -121,6 +122,32 @@ def load_arff(fname, class_index=None):
     else:
         X, y = split_off_class(data, class_index)
         return X, y, meta
+
+
+def load_dataset(fname, loader=None, class_index=None, internal=False):
+    """
+    Loads the dataset using Weka's converters. If no loader instance is provided, the extension of
+    the file is used to determine a loader (using default options). The data can either be returned
+    using mixed types or just numeric (using Weka's internal representation).
+
+    :param fname: the path of the dataset to load
+    :type fname: str
+    :param loader: the customized Loader instance to use for loading the dataset, can be None
+    :type loader: Loader
+    :param class_index: the class index string to use ('first', 'second', 'third', 'last-2', 'last-1', 'last' or 1-based index)
+    :type class_index: str
+    :param internal: whether to return Weka's internal format or mixed data types
+    :type internal: bool
+    :return: the dataset tuple: (X) if no class index; (X,y) if class index
+    """
+    if loader is None:
+        loader = loader_for_file(fname)
+    weka_ds = loader.load_file(fname, class_index=class_index)
+    numpy_ds = weka_ds.to_numpy(internal=internal)
+    if class_index is not None:
+        return split_off_class(numpy_ds, class_index)
+    else:
+        return numpy_ds
 
 
 def determine_attribute_types(X):

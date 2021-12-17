@@ -6,6 +6,8 @@ Changelog
 
 - fixed sorting of labels in `to_instances` method in module `sklweka.dataset`
 - redoing `X` when no class present in `load_arff` method (module `sklweka.dataset`)
+- added `load_dataset` method in module `sklweka.dataset` that uses Weka to load the
+  data before converting it into sklearn data structures (slower, but more flexible)
 
 
 0.0.3 (2021-10-26)
