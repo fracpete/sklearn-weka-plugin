@@ -31,7 +31,7 @@ The library has the following requirements:
 
 * Python 3 (does not work with Python 2)
 
-  * python-weka-wrapper (>=0.2.0, required)
+  * python-weka-wrapper (>=0.2.5, required)
 
 * OpenJDK 8 or later (11 is recommended)
 
