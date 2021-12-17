@@ -34,14 +34,14 @@ Loading data
 
 There are two methods available from the `sklweka.dataset` module for loading data:
 
-* `load_arff` - uses the from `loadarff` method from the `scipy.io.arff` module
-  (can't handle string attributes). Nominal classes have to be converted using
+* `load_arff` - uses the `loadarff` method from the module `scipy.io.arff`
+  (cannot handle string attributes). Nominal classes have to be converted using
   the `to_nominal_labels` method.
 * `load_dataset` - uses Weka's own data loading functionality before converting it
   into sklearn data structures, i.e., numpy matrices. Bit slower due to data conversion,
   but handles string attributes. Also not limited to ARFF files. The data can be
   either returned with mixed types (not necessary to use the `to_nominal_labels` method
-  therefore) or in Weka's internal, numeric-only data format.
+  then) or in Weka's internal, numeric-only data format.
 
 
 Regression
