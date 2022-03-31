@@ -5,7 +5,7 @@ Changelog
 ------------------
 
 - the `to_nominal_attributes` method in the `sklearn.dataset` module requires now the
-  `indices` parameter (incorrectly declared as optional)
+  `indices` parameter (incorrectly declared as optional); can parse a range string now as well
 - fixed the `fit`, `set_params` and `__str__` methods fo the `MakeNominal` transformer
   (module `sklweka.preprocessing`)
 - `WekaEstimator` (module `sklweka.classifiers`) and `WekaCluster` (module `sklweka.clusters`)
