@@ -33,6 +33,7 @@ git add -A
 git commit -a -m "updated documentation"
 git rebase gh-pages
 git push origin gh-pages
+cd ../sklearn-weka-plugin
 ```
 
 
