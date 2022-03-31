@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.0.5 (????-??-??)
+0.0.5 (2022-04-01)
 ------------------
 
 - the `to_nominal_attributes` method in the `sklearn.dataset` module requires now the
@@ -12,7 +12,6 @@ Changelog
   now allow specifying which attributes to turn into nominal ones, which avoids having
   to manually convert the data (either as list with 0-based indices or range string with 1-based indices)
 - `set_params` methods now ignore empty dictionaries
-- ...
 
 
 0.0.4 (2021-12-17)
