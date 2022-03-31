@@ -8,6 +8,9 @@ Changelog
   `indices` parameter (incorrectly declared as optional)
 - fixed the `fit`, `set_params` and `__str__` methods fo the `MakeNominal` transformer
   (module `sklweka.preprocessing`)
+- `WekaEstimator` (module `sklweka.classifiers`) and `WekaCluster` (module `sklweka.clusters`)
+  now allow specifying which attributes to turn into nominal ones, which avoids having
+  to manually convert the data
 - ...
 
 

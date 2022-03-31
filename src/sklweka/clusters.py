@@ -2,6 +2,7 @@ import numpy as np
 from numpy import ndarray
 from sklearn.base import BaseEstimator, ClusterMixin
 from sklearn.utils.validation import check_is_fitted
+from sklweka.preprocessing import to_nominal_attributes
 from weka.clusterers import Clusterer
 from weka.core.classes import is_instance_of, OptionHandler
 from weka.core.serialization import deepcopy
@@ -13,7 +14,7 @@ class WekaCluster(BaseEstimator, OptionHandler, ClusterMixin):
     Wraps a Weka cluster within the scikit-learn framework.
     """
 
-    def __init__(self, jobject=None, cluster=None, classname=None, options=None):
+    def __init__(self, jobject=None, cluster=None, classname=None, options=None, nominal_input_vars=None):
         """
         Initializes the estimator. Can be either instantiated via the following priority of parameters:
         1. JB_Object representing a Java Clusterer object
@@ -28,6 +29,8 @@ class WekaCluster(BaseEstimator, OptionHandler, ClusterMixin):
         :type classname: str
         :param options: the command-line options of the Weka cluster to instantiate
         :type options: list
+        :param nominal_input_vars: the list of 0-based indices of attributes to convert to nominal ones
+        :type nominal_input_vars: list
         """
         if jobject is not None:
             _jobject = jobject
@@ -50,6 +53,7 @@ class WekaCluster(BaseEstimator, OptionHandler, ClusterMixin):
         # the following references are required for get_params/set_params
         self._classname = classname
         self._options = options
+        self._nominal_input_vars = nominal_input_vars
 
     @property
     def cluster(self):
@@ -82,6 +86,8 @@ class WekaCluster(BaseEstimator, OptionHandler, ClusterMixin):
         :return: the cluster
         :rtype: WekaCluster
         """
+        if self._nominal_input_vars is not None:
+            data = to_nominal_attributes(data, self._nominal_input_vars)
         d = to_instances(data)
         self._cluster.build_clusterer(d)
         self.header_ = d.template_instances(d, 0)
@@ -99,6 +105,8 @@ class WekaCluster(BaseEstimator, OptionHandler, ClusterMixin):
         :rtype: ndarray
         """
         check_is_fitted(self)
+        if self._nominal_input_vars is not None:
+            data = to_nominal_attributes(data, self._nominal_input_vars)
         result = []
         for d in data:
             inst = to_instance(self.header_, d)
@@ -131,6 +139,10 @@ class WekaCluster(BaseEstimator, OptionHandler, ClusterMixin):
         result = dict()
         result["classname"] = self._classname
         result["options"] = self._options
+        if self._nominal_input_vars is not None:
+            result["nominal_input_vars"] = self._nominal_input_vars
+        if self._nominal_output_var is not None:
+            result["nominal_output_var"] = self._nominal_output_var
         return result
 
     def set_params(self, **params):
@@ -147,6 +159,12 @@ class WekaCluster(BaseEstimator, OptionHandler, ClusterMixin):
         self._classname = params["classname"]
         self._options = params["options"]
         self._cluster = Clusterer(classname=self._classname, options=self._options)
+        self._nominal_input_vars = None
+        if "nominal_input_vars" in params:
+            self._nominal_input_vars = params["nominal_input_vars"]
+        self._nominal_output_var = None
+        if "nominal_output_var" in params:
+            self._nominal_output_var = params["nominal_output_var"]
 
     def __str__(self):
         """
@@ -181,4 +199,4 @@ class WekaCluster(BaseEstimator, OptionHandler, ClusterMixin):
         :return: the representation
         :rtype: str
         """
-        return "WekaCluster(classname='%s', options=%s)" % (self._cluster.classname, str(self._cluster.options))
+        return "WekaCluster(classname='%s', options=%s, nominal_input_vars=%s)" % (self._cluster.classname, str(self._cluster.options), str(self._nominal_input_vars))

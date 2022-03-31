@@ -2,6 +2,7 @@ import numpy as np
 from numpy import ndarray
 from sklearn.base import BaseEstimator, ClassifierMixin, RegressorMixin
 from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
+from sklweka.preprocessing import to_nominal_attributes, to_nominal_labels
 from weka.classifiers import Classifier
 from weka.core.classes import is_instance_of, OptionHandler
 from weka.core.dataset import missing_value
@@ -14,7 +15,8 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
     Wraps a Weka classifier (classifier/regressor) within the scikit-learn framework.
     """
 
-    def __init__(self, jobject=None, classifier=None, classname=None, options=None):
+    def __init__(self, jobject=None, classifier=None, classname=None, options=None,
+                 nominal_input_vars=None, nominal_output_var=None):
         """
         Initializes the estimator. Can be either instantiated via the following priority of parameters:
         1. JB_Object representing a Java Classifier object
@@ -29,6 +31,10 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         :type classname: str
         :param options: the command-line options of the Weka classifier to instantiate
         :type options: list
+        :param nominal_input_vars: the list of 0-based indices of attributes to convert to nominal ones
+        :type nominal_input_vars: list
+        :param nominal_output_var: whether to convert the output variable to a nominal one
+        :type nominal_output_var: bool
         """
         if jobject is not None:
             _jobject = jobject
@@ -51,6 +57,8 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         # the following references are required for get_params/set_params
         self._classname = classname
         self._options = options
+        self._nominal_input_vars = nominal_input_vars
+        self._nominal_output_var = nominal_output_var
 
     @property
     def classifier(self):
@@ -83,7 +91,11 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         :return: itself
         :rtype: WekaEstimator
         """
-        data, targets = check_X_y(data, y=targets)
+        data, targets = check_X_y(data, y=targets, dtype=None)
+        if self._nominal_input_vars is not None:
+            data = to_nominal_attributes(data, self._nominal_input_vars)
+        if self._nominal_output_var is not None:
+            targets = to_nominal_labels(targets)
         d = to_instances(data, targets)
         self._classifier.build_classifier(d)
         self.header_ = d.template_instances(d, 0)
@@ -99,7 +111,9 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         :rtype: ndarray
         """
         check_is_fitted(self)
-        data = check_array(data)
+        if self._nominal_input_vars is not None:
+            data = to_nominal_attributes(data, self._nominal_input_vars)
+        data = check_array(data, dtype=None)
         result = []
         for d in data:
             inst = to_instance(self.header_, d, missing_value())
@@ -118,7 +132,9 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         :return: the probabilities
         """
         check_is_fitted(self)
-        data = check_array(data)
+        if self._nominal_input_vars is not None:
+            data = to_nominal_attributes(data, self._nominal_input_vars)
+        data = check_array(data, dtype=None)
         result = []
         for d in data:
             inst = to_instance(self.header_, d, missing_value())
@@ -137,6 +153,10 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         result = dict()
         result["classname"] = self._classname
         result["options"] = self._options
+        if self._nominal_input_vars is not None:
+            result["nominal_input_vars"] = self._nominal_input_vars
+        if self._nominal_output_var is not None:
+            result["nominal_output_var"] = self._nominal_output_var
         return result
 
     def set_params(self, **params):
@@ -153,6 +173,12 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         self._classname = params["classname"]
         self._options = params["options"]
         self._classifier = Classifier(classname=self._classname, options=self._options)
+        self._nominal_input_vars = None
+        if "nominal_input_vars" in params:
+            self._nominal_input_vars = params["nominal_input_vars"]
+        self._nominal_output_var = None
+        if "nominal_output_var" in params:
+            self._nominal_output_var = params["nominal_output_var"]
 
     def __str__(self):
         """
@@ -176,6 +202,8 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         result = WekaEstimator(jobject=deepcopy(self.jobject))
         result._classname = self._classname
         result._options = self._options[:]
+        result._nominal_input_vars = None if (self._nominal_input_vars is None) else self._nominal_input_vars[:]
+        result._nominal_output_var = self._nominal_output_var
         return result
 
     def __repr__(self, N_CHAR_MAX=700):
@@ -187,4 +215,4 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         :return: the representation
         :rtype: str
         """
-        return "WekaEstimator(classname='%s', options=%s)" % (self._classifier.classname, str(self._classifier.options))
+        return "WekaEstimator(classname='%s', options=%s, nominal_input_vars=%s, nominal_output_var=%s)" % (self._classifier.classname, str(self._classifier.options), str(self._nominal_input_vars), str(self._nominal_output_var))
