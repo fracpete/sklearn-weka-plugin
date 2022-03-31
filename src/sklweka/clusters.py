@@ -29,8 +29,8 @@ class WekaCluster(BaseEstimator, OptionHandler, ClusterMixin):
         :type classname: str
         :param options: the command-line options of the Weka cluster to instantiate
         :type options: list
-        :param nominal_input_vars: the list of 0-based indices of attributes to convert to nominal ones
-        :type nominal_input_vars: list
+        :param nominal_input_vars: the list of 0-based indices of attributes to convert to nominal or range string with 1-based indices
+        :type nominal_input_vars: list or str
         """
         if jobject is not None:
             _jobject = jobject
@@ -201,4 +201,7 @@ class WekaCluster(BaseEstimator, OptionHandler, ClusterMixin):
         :return: the representation
         :rtype: str
         """
-        return "WekaCluster(classname='%s', options=%s, nominal_input_vars=%s)" % (self._cluster.classname, str(self._cluster.options), str(self._nominal_input_vars))
+        if isinstance(self._nominal_input_vars, str):
+            return "WekaCluster(classname='%s', options=%s, nominal_input_vars='%s')" % (self._cluster.classname, str(self._cluster.options), str(self._nominal_input_vars))
+        else:
+            return "WekaCluster(classname='%s', options=%s, nominal_input_vars=%s)" % (self._cluster.classname, str(self._cluster.options), str(self._nominal_input_vars))

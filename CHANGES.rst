@@ -10,7 +10,7 @@ Changelog
   (module `sklweka.preprocessing`)
 - `WekaEstimator` (module `sklweka.classifiers`) and `WekaCluster` (module `sklweka.clusters`)
   now allow specifying which attributes to turn into nominal ones, which avoids having
-  to manually convert the data
+  to manually convert the data (either as list with 0-based indices or range string with 1-based indices)
 - `set_params` methods now ignore empty dictionaries
 - ...
 

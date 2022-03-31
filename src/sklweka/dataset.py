@@ -7,18 +7,81 @@ import numpy as np
 from numpy import ndarray
 
 
+def parse_range(r, max_value, ordered=True, safe=True):
+    """
+    Parses the Weka range string (eg "first-last" or "1,3-5,7,10-last")
+    of 1-based indices and returns a list of 0-based integers.
+    'first' and 'last' are accepted apart from integer strings,
+    '-' is used to define a range (low to high).
+    The list can be returned ordered or as is.
+
+    :param r: the range string to parse
+    :type r: str
+    :param max_value: the maximum value for the 1-based indices
+    :type max_value: int
+    :param ordered: whether to return the list ordered or as is
+    :type ordered: bool
+    :param safe: whether to catch exceptions or not
+    :type safe: bool
+    :return: the list of 0-base indices
+    :rtype: list
+    """
+    result = []
+
+    parts = r.replace(" ", "").replace("first", "1").replace("last", str(max_value)).split(",")
+    for part in parts:
+        if "-" in part:
+            bounds = part.split("-")
+            low = None
+            high = None
+            if len(bounds) == 2:
+                if safe:
+                    try:
+                        low = int(bounds[0]) - 1
+                        high = int(bounds[1]) - 1
+                        if low > high:
+                            print("Invalid format for index range ('LOW-HIGH'): %s" % part)
+                            continue
+                    except:
+                        print("Failed to parse bounds of '%s' from range '%s' (max: %d), skipping!" % (part, r, max_value))
+                else:
+                    low = int(bounds[0]) - 1
+                    high = int(bounds[1]) - 1
+                    if low > high:
+                        print("Invalid format for index range ('LOW-HIGH'): %s" % part)
+                        continue
+            if (low is not None) and (high is not None):
+                for i in range(low, high + 1):
+                    result.append(i)
+        else:
+            if safe:
+                try:
+                    result.append(int(part) - 1)
+                except:
+                    print("Failed to parse '%s' from range '%s', skipping (max: %d)!" % (part, r, max_value))
+            else:
+                result.append(int(part) - 1)
+
+    if ordered:
+        result.sort()
+
+    return result
+
+
 def to_nominal_attributes(X, indices):
     """
     Turns the specified indices numeric column vector into a string vector.
 
     :param X: the 2D matrix to convert
     :type X: ndarray
-    :param indices: the list of 0-based indices of attributes to convert to nominal
-    :type indices: list
+    :param indices: the list of 0-based indices of attributes to convert to nominal or range string with 1-based indices
+    :type indices: list or str
     :return: the converted matrix
     :rtype: ndarray
     """
     result = []
+    if isinstance(indices, str):
+        indices = parse_range(indices, X.shape[1])
     indices_set = set(indices)
     for r in X:
         rn = []

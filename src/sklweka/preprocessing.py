@@ -198,8 +198,8 @@ class MakeNominal(BaseEstimator, TransformerMixin):
         """
         Initializes the estimator.
 
-        :param input_vars: the list of 0-based indices to convert
-        :type input_vars: list
+        :param nominal_input_vars: the list of 0-based indices of attributes to convert to nominal or range string with 1-based indices
+        :type nominal_input_vars: list or str
         :param output_var: whether to convert the output variable as well
         :type output_var: bool
         """
@@ -210,10 +210,10 @@ class MakeNominal(BaseEstimator, TransformerMixin):
     @property
     def input_vars(self):
         """
-        Returns the 0-based indices of the input variables to convert.
+        Returns the 0-based indices or range string with 1-based indices of the input variables to convert.
 
-        :return: the indices, can be None
-        :rtype: list
+        :return: the indices or range string, can be None
+        :rtype: list or str
         """
         return self._input_vars
 

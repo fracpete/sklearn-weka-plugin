@@ -31,8 +31,8 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         :type classname: str
         :param options: the command-line options of the Weka classifier to instantiate
         :type options: list
-        :param nominal_input_vars: the list of 0-based indices of attributes to convert to nominal ones
-        :type nominal_input_vars: list
+        :param nominal_input_vars: the list of 0-based indices of attributes to convert to nominal or range string with 1-based indices
+        :type nominal_input_vars: list or str
         :param nominal_output_var: whether to convert the output variable to a nominal one
         :type nominal_output_var: bool
         """
@@ -222,4 +222,7 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         :return: the representation
         :rtype: str
         """
-        return "WekaEstimator(classname='%s', options=%s, nominal_input_vars=%s, nominal_output_var=%s)" % (self._classifier.classname, str(self._classifier.options), str(self._nominal_input_vars), str(self._nominal_output_var))
+        if isinstance(self._nominal_input_vars, str):
+            return "WekaEstimator(classname='%s', options=%s, nominal_input_vars='%s', nominal_output_var=%s)" % (self._classifier.classname, str(self._classifier.options), str(self._nominal_input_vars), str(self._nominal_output_var))
+        else:
+            return "WekaEstimator(classname='%s', options=%s, nominal_input_vars=%s, nominal_output_var=%s)" % (self._classifier.classname, str(self._classifier.options), str(self._nominal_input_vars), str(self._nominal_output_var))
