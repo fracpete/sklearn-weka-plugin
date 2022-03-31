@@ -143,6 +143,8 @@ class WekaTransformer(BaseEstimator, OptionHandler, TransformerMixin):
         :param params: the parameter dictionary
         :type params: dict
         """
+        if len(params) == 0:
+            return
         if "classname" not in params:
             raise Exception("Cannot find 'classname' in parameters!")
         if "options" not in params:
@@ -282,6 +284,8 @@ class MakeNominal(BaseEstimator, TransformerMixin):
         :param params: the parameter dictionary
         :type params: dict
         """
+        if len(params) == 0:
+            return
         if "input_vars" not in params:
             raise Exception("Cannot find 'input_vars' in parameters!")
         if "output_var" not in params:

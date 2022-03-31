@@ -11,6 +11,7 @@ Changelog
 - `WekaEstimator` (module `sklweka.classifiers`) and `WekaCluster` (module `sklweka.clusters`)
   now allow specifying which attributes to turn into nominal ones, which avoids having
   to manually convert the data
+- `set_params` methods now ignore empty dictionaries
 - ...
 
 

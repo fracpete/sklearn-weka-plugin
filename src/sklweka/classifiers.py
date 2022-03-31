@@ -54,6 +54,7 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         super(WekaEstimator, self).__init__(_jobject)
         self._classifier = Classifier(jobject=_jobject)
         self.header_ = None
+        self.classes_ = None
         # the following references are required for get_params/set_params
         self._classname = classname
         self._options = options
@@ -99,6 +100,10 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         d = to_instances(data, targets)
         self._classifier.build_classifier(d)
         self.header_ = d.template_instances(d, 0)
+        if d.class_attribute.is_nominal:
+            self.classes_ = d.class_attribute.values
+        else:
+            self.classes_ = None
         return self
 
     def predict(self, data):
@@ -166,6 +171,8 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         :param params: the parameter dictionary
         :type params: dict
         """
+        if len(params) == 0:
+            return
         if "classname" not in params:
             raise Exception("Cannot find 'classname' in parameters!")
         if "options" not in params:

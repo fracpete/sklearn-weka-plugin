@@ -152,6 +152,8 @@ class WekaCluster(BaseEstimator, OptionHandler, ClusterMixin):
         :param params: the parameter dictionary
         :type params: dict
         """
+        if len(params) == 0:
+            return
         if "classname" not in params:
             raise Exception("Cannot find 'classname' in parameters!")
         if "options" not in params:
