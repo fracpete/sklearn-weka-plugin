@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Examples &#8212; sklearn-weka-plugin 0.0.4 documentation</title>
+    <title>Examples &#8212; sklearn-weka-plugin 0.0.5 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
@@ -35,7 +35,7 @@
         <li class="right" >
           <a href="install.html" title="Installation"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">sklearn-weka-plugin 0.0.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">sklearn-weka-plugin 0.0.5 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Examples</a></li> 
       </ul>
     </div>  
@@ -103,12 +103,32 @@ then) or in Weka’s internal, numeric-only data format.</p></li>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
 
 <span class="c1"># using the load_arff method:</span>
-<span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">load_arff</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s2">&quot;/iris.arff&quot;</span><span class="p">,</span> <span class="s2">&quot;class_index=last&quot;</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">load_arff</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s2">&quot;/iris.arff&quot;</span><span class="p">,</span> <span class="n">class_index</span><span class="o">=</span><span class="s2">&quot;last&quot;</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">to_nominal_labels</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
 <span class="c1"># using the load_dataset method:</span>
-<span class="c1"># X, y = load_dataset(data_dir + &quot;/iris.arff&quot;, &quot;class_index=last&quot;)</span>
+<span class="c1"># X, y = load_dataset(data_dir + &quot;/iris.arff&quot;, class_index=&quot;last&quot;)</span>
 
 <span class="n">j48</span> <span class="o">=</span> <span class="n">WekaEstimator</span><span class="p">(</span><span class="n">classname</span><span class="o">=</span><span class="s2">&quot;weka.classifiers.trees.J48&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;-M&quot;</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="p">])</span>
+<span class="n">j48</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">j48</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">probas</span> <span class="o">=</span> <span class="n">j48</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">J48 on iris</span><span class="se">\n</span><span class="s2">actual label -&gt; predicted label, probabilities&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">scores</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">probas</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Alternatively to manually converting labels and nominal attributes, you can use
+the <cite>nominal_input_vars</cite> (list of 0-based indices or range string with 1-based
+indices) and <cite>nominal_output_var</cite> (bool) parameters in the constructor:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklweka.dataset</span> <span class="kn">import</span> <span class="n">load_arff</span>
+<span class="kn">from</span> <span class="nn">sklweka.classifiers</span> <span class="kn">import</span> <span class="n">WekaEstimator</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
+
+<span class="c1"># using the load_arff method:</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">load_arff</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s2">&quot;/vote.arff&quot;</span><span class="p">,</span> <span class="n">class_index</span><span class="o">=</span><span class="s2">&quot;last&quot;</span><span class="p">)</span>
+
+<span class="n">j48</span> <span class="o">=</span> <span class="n">WekaEstimator</span><span class="p">(</span><span class="n">classname</span><span class="o">=</span><span class="s2">&quot;weka.classifiers.trees.J48&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;-M&quot;</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="p">],</span>
+                    <span class="n">nominal_input_vars</span><span class="o">=</span><span class="s2">&quot;first-last&quot;</span><span class="p">,</span> <span class="n">nominal_output_var</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">j48</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 <span class="n">scores</span> <span class="o">=</span> <span class="n">j48</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="n">probas</span> <span class="o">=</span> <span class="n">j48</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
@@ -126,6 +146,21 @@ then) or in Weka’s internal, numeric-only data format.</p></li>
 
 <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">load_arff</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s2">&quot;/iris.arff&quot;</span><span class="p">,</span> <span class="n">class_index</span><span class="o">=</span><span class="s2">&quot;last&quot;</span><span class="p">)</span>
 <span class="n">cl</span> <span class="o">=</span> <span class="n">WekaCluster</span><span class="p">(</span><span class="n">classname</span><span class="o">=</span><span class="s2">&quot;weka.clusterers.SimpleKMeans&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;-N&quot;</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="p">])</span>
+<span class="n">clusters</span> <span class="o">=</span> <span class="n">cl</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">SimpleKMeans on iris</span><span class="se">\n</span><span class="s2">class label -&gt; cluster&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">clusters</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Alternatively to manually converting labels and nominal attributes, you can use
+the <cite>nominal_input_vars</cite> (list of 0-based indices or range string with 1-based
+indices) parameter in the constructor:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklweka.dataset</span> <span class="kn">import</span> <span class="n">load_arff</span>
+<span class="kn">from</span> <span class="nn">sklweka.clusters</span> <span class="kn">import</span> <span class="n">WekaCluster</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">load_arff</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s2">&quot;/vote.arff&quot;</span><span class="p">,</span> <span class="n">class_index</span><span class="o">=</span><span class="s2">&quot;last&quot;</span><span class="p">)</span>
+<span class="n">cl</span> <span class="o">=</span> <span class="n">WekaCluster</span><span class="p">(</span><span class="n">classname</span><span class="o">=</span><span class="s2">&quot;weka.clusterers.SimpleKMeans&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;-N&quot;</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="p">],</span>
+                 <span class="n">nominal_input_vars</span><span class="o">=</span><span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])])</span>
 <span class="n">clusters</span> <span class="o">=</span> <span class="n">cl</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">SimpleKMeans on iris</span><span class="se">\n</span><span class="s2">class label -&gt; cluster&quot;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)):</span>
@@ -249,12 +284,12 @@ then) or in Weka’s internal, numeric-only data format.</p></li>
         <li class="right" >
           <a href="install.html" title="Installation"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">sklearn-weka-plugin 0.0.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">sklearn-weka-plugin 0.0.5 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Examples</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2021, Peter &#34;fracpete&#34; Reutemann.
+        &#169; Copyright 2021-2022, Peter &#34;fracpete&#34; Reutemann.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.1.
     </div>
   </body>

@@ -73,12 +73,34 @@ Classification algorithms are also available through the `sklweka.classifiers.We
    from sklearn.model_selection import cross_val_score
 
    # using the load_arff method:
-   X, y, meta = load_arff(data_dir + "/iris.arff", "class_index=last")
+   X, y, meta = load_arff(data_dir + "/iris.arff", class_index="last")
    y = to_nominal_labels(y)
    # using the load_dataset method:
-   # X, y = load_dataset(data_dir + "/iris.arff", "class_index=last")
+   # X, y = load_dataset(data_dir + "/iris.arff", class_index="last")
 
    j48 = WekaEstimator(classname="weka.classifiers.trees.J48", options=["-M", "3"])
+   j48.fit(X, y)
+   scores = j48.predict(X)
+   probas = j48.predict_proba(X)
+   print("\nJ48 on iris\nactual label -> predicted label, probabilities")
+   for i in range(len(y)):
+       print(y[i], "->", scores[i], probas[i])
+
+Alternatively to manually converting labels and nominal attributes, you can use
+the `nominal_input_vars` (list of 0-based indices or range string with 1-based
+indices) and `nominal_output_var` (bool) parameters in the constructor:
+
+.. code-block:: python
+
+   from sklweka.dataset import load_arff
+   from sklweka.classifiers import WekaEstimator
+   from sklearn.model_selection import cross_val_score
+
+   # using the load_arff method:
+   X, y, meta = load_arff(data_dir + "/vote.arff", class_index="last")
+
+   j48 = WekaEstimator(classname="weka.classifiers.trees.J48", options=["-M", "3"],
+                       nominal_input_vars="first-last", nominal_output_var=True)
    j48.fit(X, y)
    scores = j48.predict(X)
    probas = j48.predict_proba(X)
@@ -99,6 +121,23 @@ Clustering algorithms are available through the `sklweka.clusters.WekaCluster` w
 
    X, y, meta = load_arff(data_dir + "/iris.arff", class_index="last")
    cl = WekaCluster(classname="weka.clusterers.SimpleKMeans", options=["-N", "3"])
+   clusters = cl.fit_predict(X)
+   print("\nSimpleKMeans on iris\nclass label -> cluster")
+   for i in range(len(y)):
+       print(y[i], "->", clusters[i])
+
+Alternatively to manually converting labels and nominal attributes, you can use
+the `nominal_input_vars` (list of 0-based indices or range string with 1-based
+indices) parameter in the constructor:
+
+.. code-block:: python
+
+   from sklweka.dataset import load_arff
+   from sklweka.clusters import WekaCluster
+
+   X, y, meta = load_arff(data_dir + "/vote.arff", class_index="last")
+   cl = WekaCluster(classname="weka.clusterers.SimpleKMeans", options=["-N", "3"],
+                    nominal_input_vars=[x for x in range(X.shape[1])])
    clusters = cl.fit_predict(X)
    print("\nSimpleKMeans on iris\nclass label -> cluster")
    for i in range(len(y)):
