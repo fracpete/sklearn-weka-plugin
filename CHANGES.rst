@@ -4,6 +4,10 @@ Changelog
 0.0.5 (????-??-??)
 ------------------
 
+- the `to_nominal_attributes` method in the `sklearn.dataset` module requires now the
+  `indices` parameter (incorrectly declared as optional)
+- fixed the `fit`, `set_params` and `__str__` methods fo the `MakeNominal` transformer
+  (module `sklweka.preprocessing`)
 - ...
 
 

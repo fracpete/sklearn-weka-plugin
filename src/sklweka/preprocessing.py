@@ -237,9 +237,9 @@ class MakeNominal(BaseEstimator, TransformerMixin):
         :rtype: WekaTransformer
         """
         if targets is None:
-            check_array(data)
+            check_array(data, dtype=None)
         else:
-            check_X_y(data, targets)
+            check_X_y(data, targets, dtype=None)
         self.initialized_ = True
         return self
 
@@ -287,7 +287,7 @@ class MakeNominal(BaseEstimator, TransformerMixin):
         if "output_var" not in params:
             raise Exception("Cannot find 'output_var' in parameters!")
         self._input_vars = params["input_vars"]
-        self._output_var = params["output_vars"]
+        self._output_var = params["output_var"]
 
     def __str__(self):
         """
@@ -296,10 +296,7 @@ class MakeNominal(BaseEstimator, TransformerMixin):
         :return: the model representation, if any
         :rtype: str
         """
-        if self._filter is None:
-            return self._classname + ": No filter instantiated yet"
-        else:
-            return str(self._filter)
+        return "MakeNominal\n===========\n- Input vars: %s\n- Output var: %s" % (str(self._input_vars), str(self._output_var))
 
     def __copy__(self):
         """
