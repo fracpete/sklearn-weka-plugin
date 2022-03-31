@@ -7,9 +7,9 @@ import numpy as np
 from numpy import ndarray
 
 
-def to_nominal_attributes(X, indices=None):
+def to_nominal_attributes(X, indices):
     """
-    Turns the numeric column vector into a string vector.
+    Turns the specified indices numeric column vector into a string vector.
 
     :param X: the 2D matrix to convert
     :type X: ndarray
