@@ -14,7 +14,8 @@ class WekaTransformer(BaseEstimator, OptionHandler, TransformerMixin):
     Wraps a Weka filter within the scikit-learn framework.
     """
 
-    def __init__(self, jobject=None, filter=None, classname=None, options=None):
+    def __init__(self, jobject=None, filter=None, classname=None, options=None,
+                 num_nominal_input_labels=None, num_nominal_output_labels=None):
         """
         Initializes the estimator. Can be either instantiated via the following priority of parameters:
         1. JB_Object representing a Java Filter object
@@ -29,6 +30,10 @@ class WekaTransformer(BaseEstimator, OptionHandler, TransformerMixin):
         :type classname: str
         :param options: the command-line options of the Weka filter to instantiate
         :type options: list
+        :param num_nominal_input_labels: the dictionary with the number of labels for the nominal input variables (key is 0-based attribute index)
+        :type num_nominal_input_labels: dict
+        :param num_nominal_output_labels: the number of labels for the output variable
+        :type num_nominal_output_labels: int
         """
         if jobject is not None:
             _jobject = jobject
@@ -51,6 +56,8 @@ class WekaTransformer(BaseEstimator, OptionHandler, TransformerMixin):
         # the following references are required for get_params/set_params
         self._classname = classname
         self._options = options
+        self._num_nominal_input_labels = num_nominal_input_labels
+        self._num_nominal_output_labels = num_nominal_output_labels
 
     @property
     def filter(self):
@@ -87,7 +94,9 @@ class WekaTransformer(BaseEstimator, OptionHandler, TransformerMixin):
             check_array(data)
         else:
             check_X_y(data, targets)
-        d = to_instances(data, y=targets)
+        d = to_instances(data, y=targets,
+                         num_nominal_labels=self._num_nominal_input_labels,
+                         num_class_labels=self._num_nominal_output_labels)
         self.header_ = Instances.template_instances(d)
         self._filter.inputformat(d)
         self._filter.filter(d)
@@ -114,7 +123,9 @@ class WekaTransformer(BaseEstimator, OptionHandler, TransformerMixin):
                 targets.append(missing_value())
             targets = np.array(targets)
 
-        d = to_instances(data, y=targets)
+        d = to_instances(data, y=targets,
+                         num_nominal_labels=self._num_nominal_input_labels,
+                         num_class_labels=self._num_nominal_output_labels)
         d_new = self._filter.filter(d)
         X, y = to_array(d_new)
         if no_targets:
@@ -134,6 +145,10 @@ class WekaTransformer(BaseEstimator, OptionHandler, TransformerMixin):
         result = dict()
         result["classname"] = self._classname
         result["options"] = self._options
+        if self._num_nominal_input_labels is not None:
+            result["num_nominal_input_labels"] = self._num_nominal_input_labels
+        if self._num_nominal_output_labels is not None:
+            result["num_nominal_output_labels"] = self._num_nominal_output_labels
         return result
 
     def set_params(self, **params):
@@ -152,6 +167,12 @@ class WekaTransformer(BaseEstimator, OptionHandler, TransformerMixin):
         self._classname = params["classname"]
         self._options = params["options"]
         self._filter = Filter(classname=self._classname, options=self._options)
+        self._num_nominal_input_labels = None
+        if "num_nominal_input_labels" in params:
+            self._num_nominal_input_labels = params["num_nominal_input_labels"]
+        self._num_nominal_output_labels = None
+        if "num_nominal_output_labels" in params:
+            self._num_nominal_output_labels = params["num_nominal_output_labels"]
 
     def __str__(self):
         """
@@ -194,7 +215,7 @@ class MakeNominal(BaseEstimator, TransformerMixin):
     Converts numeric columns to nominal ones (ie string labels).
     """
 
-    def __init__(self, input_vars=None, output_var=False):
+    def __init__(self, input_vars=None, output_var=False, num_nominal_input_labels=None, num_nominal_output_labels=None):
         """
         Initializes the estimator.
 
@@ -202,10 +223,16 @@ class MakeNominal(BaseEstimator, TransformerMixin):
         :type nominal_input_vars: list or str
         :param output_var: whether to convert the output variable as well
         :type output_var: bool
+        :param num_nominal_input_labels: the dictionary with the number of labels for the nominal input variables (key is 0-based attribute index)
+        :type num_nominal_input_labels: dict
+        :param num_nominal_output_labels: the number of labels for the output variable
+        :type num_nominal_output_labels: int
         """
         super(MakeNominal, self).__init__()
         self._input_vars = None if input_vars is None else input_vars[:]
         self._output_var = output_var
+        self._num_nominal_input_labels = num_nominal_input_labels
+        self._num_nominal_output_labels = num_nominal_output_labels
 
     @property
     def input_vars(self):
@@ -275,6 +302,10 @@ class MakeNominal(BaseEstimator, TransformerMixin):
         result = dict()
         result["input_vars"] = self._input_vars
         result["output_var"] = self._output_var
+        if self._num_nominal_input_labels is not None:
+            result["num_nominal_input_labels"] = self._num_nominal_input_labels
+        if self._num_nominal_output_labels is not None:
+            result["num_nominal_output_labels"] = self._num_nominal_output_labels
         return result
 
     def set_params(self, **params):
@@ -292,6 +323,12 @@ class MakeNominal(BaseEstimator, TransformerMixin):
             raise Exception("Cannot find 'output_var' in parameters!")
         self._input_vars = params["input_vars"]
         self._output_var = params["output_var"]
+        self._num_nominal_input_labels = None
+        if "num_nominal_input_labels" in params:
+            self._num_nominal_input_labels = params["num_nominal_input_labels"]
+        self._num_nominal_output_labels = None
+        if "num_nominal_output_labels" in params:
+            self._num_nominal_output_labels = params["num_nominal_output_labels"]
 
     def __str__(self):
         """

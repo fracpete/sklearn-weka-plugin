@@ -4,7 +4,10 @@ Changelog
 0.0.6 (????-??-??)
 ------------------
 
-- ...
+- `WekaEstimator` (module `sklweka.classifiers`) and `WekaCluster` (module `sklweka.clusters`)
+  now allow specifying how many labels a particular nominal attribute or class attribute has
+  (to avoid error message like `Cannot handle unary class attribute!` if there is only one
+  label present in a particular split)
 
 
 0.0.5 (2022-04-01)

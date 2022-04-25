@@ -14,7 +14,8 @@ class WekaCluster(BaseEstimator, OptionHandler, ClusterMixin):
     Wraps a Weka cluster within the scikit-learn framework.
     """
 
-    def __init__(self, jobject=None, cluster=None, classname=None, options=None, nominal_input_vars=None):
+    def __init__(self, jobject=None, cluster=None, classname=None, options=None, nominal_input_vars=None,
+                 num_nominal_input_labels=None):
         """
         Initializes the estimator. Can be either instantiated via the following priority of parameters:
         1. JB_Object representing a Java Clusterer object
@@ -29,8 +30,8 @@ class WekaCluster(BaseEstimator, OptionHandler, ClusterMixin):
         :type classname: str
         :param options: the command-line options of the Weka cluster to instantiate
         :type options: list
-        :param nominal_input_vars: the list of 0-based indices of attributes to convert to nominal or range string with 1-based indices
-        :type nominal_input_vars: list or str
+        :param num_nominal_input_labels: the dictionary with the number of labels for the nominal input variables (key is 0-based attribute index)
+        :type num_nominal_input_labels: dict
         """
         if jobject is not None:
             _jobject = jobject
@@ -54,6 +55,7 @@ class WekaCluster(BaseEstimator, OptionHandler, ClusterMixin):
         self._classname = classname
         self._options = options
         self._nominal_input_vars = nominal_input_vars
+        self._num_nominal_input_labels = num_nominal_input_labels
 
     @property
     def cluster(self):
@@ -88,7 +90,7 @@ class WekaCluster(BaseEstimator, OptionHandler, ClusterMixin):
         """
         if self._nominal_input_vars is not None:
             data = to_nominal_attributes(data, self._nominal_input_vars)
-        d = to_instances(data)
+        d = to_instances(data, num_nominal_labels=self._num_nominal_input_labels)
         self._cluster.build_clusterer(d)
         self.header_ = d.template_instances(d, 0)
         return self
@@ -141,8 +143,10 @@ class WekaCluster(BaseEstimator, OptionHandler, ClusterMixin):
         result["options"] = self._options
         if self._nominal_input_vars is not None:
             result["nominal_input_vars"] = self._nominal_input_vars
-        if self._nominal_output_var is not None:
-            result["nominal_output_var"] = self._nominal_output_var
+        if self._num_nominal_input_labels is not None:
+            result["num_nominal_input_labels"] = self._num_nominal_input_labels
+        if self._num_nominal_input_labels is not None:
+            result["num_nominal_input_labels"] = self._num_nominal_input_labels
         return result
 
     def set_params(self, **params):
@@ -164,9 +168,9 @@ class WekaCluster(BaseEstimator, OptionHandler, ClusterMixin):
         self._nominal_input_vars = None
         if "nominal_input_vars" in params:
             self._nominal_input_vars = params["nominal_input_vars"]
-        self._nominal_output_var = None
-        if "nominal_output_var" in params:
-            self._nominal_output_var = params["nominal_output_var"]
+        self._num_nominal_input_labels = None
+        if "num_nominal_input_labels" in params:
+            self._num_nominal_input_labels = params["num_nominal_input_labels"]
 
     def __str__(self):
         """

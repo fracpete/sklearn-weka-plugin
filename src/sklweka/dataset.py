@@ -265,7 +265,8 @@ def determine_attribute_type(y):
     return result
 
 
-def to_instances(X, y=None, att_names=None, att_types=None, class_name=None, class_type=None, relation_name=None):
+def to_instances(X, y=None, att_names=None, att_types=None, class_name=None, class_type=None, relation_name=None,
+                 num_nominal_labels=None, num_class_labels=None):
     """
     Turns the 2D matrix and the optional 1D class vector into an Instances object.
 
@@ -282,6 +283,10 @@ def to_instances(X, y=None, att_names=None, att_types=None, class_name=None, cla
     :type class_type: str
     :param relation_name: the name for the dataset
     :type relation_name: str
+    :param num_nominal_labels: the dictionary with the number of labels (key is 0-based attribute index)
+    :type num_nominal_labels: dict
+    :param num_class_labels: the number of labels in the class attribute
+    :type num_class_labels: int
     :return: the generated Instances object
     :rtype: Instances
     """
@@ -317,12 +322,17 @@ def to_instances(X, y=None, att_names=None, att_types=None, class_name=None, cla
         if att_type == "N":
             atts.append(Attribute.create_numeric(att_name))
         elif att_type == "C":
-            labels = set()
-            for n in range(len(X)):
-                r = X[n]
-                v = str(r[i])
-                labels.add(v)
-            values = sorted(labels)
+            if (num_nominal_labels is not None) and (i in num_nominal_labels):
+                values = []
+                for l in range(num_nominal_labels[i]):
+                    values.append("_%d" % l)
+            else:
+                labels = set()
+                for n in range(len(X)):
+                    r = X[n]
+                    v = str(r[i])
+                    labels.add(v)
+                values = sorted(labels)
             atts.append(Attribute.create_nominal(att_name, values))
         else:
             raise Exception("Unsupported attribute type for column %d: %s" % ((i+1), att_type))
@@ -331,7 +341,12 @@ def to_instances(X, y=None, att_names=None, att_types=None, class_name=None, cla
         if class_type == "N":
             atts.append(Attribute.create_numeric(class_name))
         elif class_type == "C":
-            values = sorted(set([str(x) for x in y]))
+            if num_class_labels is not None:
+                values = []
+                for l in range(num_class_labels):
+                    values.append("_%d" % l)
+            else:
+                values = sorted(set([str(x) for x in y]))
             atts.append(Attribute.create_nominal(class_name, values))
 
     result = Instances.create_instances(relation_name, atts, len(X))

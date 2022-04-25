@@ -16,7 +16,8 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
     """
 
     def __init__(self, jobject=None, classifier=None, classname=None, options=None,
-                 nominal_input_vars=None, nominal_output_var=None):
+                 nominal_input_vars=None, nominal_output_var=None,
+                 num_nominal_input_labels=None, num_nominal_output_labels=None):
         """
         Initializes the estimator. Can be either instantiated via the following priority of parameters:
         1. JB_Object representing a Java Classifier object
@@ -35,6 +36,10 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         :type nominal_input_vars: list or str
         :param nominal_output_var: whether to convert the output variable to a nominal one
         :type nominal_output_var: bool
+        :param num_nominal_input_labels: the dictionary with the number of labels for the nominal input variables (key is 0-based attribute index)
+        :type num_nominal_input_labels: dict
+        :param num_nominal_output_labels: the number of labels for the output variable
+        :type num_nominal_output_labels: int
         """
         if jobject is not None:
             _jobject = jobject
@@ -60,6 +65,8 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         self._options = options
         self._nominal_input_vars = nominal_input_vars
         self._nominal_output_var = nominal_output_var
+        self._num_nominal_input_labels = num_nominal_input_labels
+        self._num_nominal_output_labels = num_nominal_output_labels
 
     @property
     def classifier(self):
@@ -97,7 +104,9 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
             data = to_nominal_attributes(data, self._nominal_input_vars)
         if self._nominal_output_var is not None:
             targets = to_nominal_labels(targets)
-        d = to_instances(data, targets)
+        d = to_instances(data, targets,
+                         num_nominal_labels=self._num_nominal_input_labels,
+                         num_class_labels=self._num_nominal_output_labels)
         self._classifier.build_classifier(d)
         self.header_ = d.template_instances(d, 0)
         if d.class_attribute.is_nominal:
@@ -162,6 +171,10 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
             result["nominal_input_vars"] = self._nominal_input_vars
         if self._nominal_output_var is not None:
             result["nominal_output_var"] = self._nominal_output_var
+        if self._num_nominal_input_labels is not None:
+            result["num_nominal_input_labels"] = self._num_nominal_input_labels
+        if self._num_nominal_output_labels is not None:
+            result["num_nominal_output_labels"] = self._num_nominal_output_labels
         return result
 
     def set_params(self, **params):
@@ -186,6 +199,12 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         self._nominal_output_var = None
         if "nominal_output_var" in params:
             self._nominal_output_var = params["nominal_output_var"]
+        self._num_nominal_input_labels = None
+        if "num_nominal_input_labels" in params:
+            self._num_nominal_input_labels = params["num_nominal_input_labels"]
+        self._num_nominal_output_labels = None
+        if "num_nominal_output_labels" in params:
+            self._num_nominal_output_labels = params["num_nominal_output_labels"]
 
     def __str__(self):
         """
