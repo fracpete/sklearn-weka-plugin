@@ -2,6 +2,7 @@ import numpy as np
 from numpy import ndarray
 from sklearn.base import BaseEstimator, ClassifierMixin, RegressorMixin
 from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
+from sklearn.metrics import accuracy_score, r2_score
 from sklweka.preprocessing import to_nominal_attributes, to_nominal_labels
 from weka.classifiers import Classifier
 from weka.core.classes import is_instance_of, OptionHandler
@@ -154,6 +155,24 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
             inst = to_instance(self.header_, d, missing_value())
             result.append(self._classifier.distribution_for_instance(inst))
         return np.array(result)
+
+    def score(self, data, targets, sample_weight=None):
+        """
+        Classification: return the mean accuracy on the given test data and labels.
+        Regression: return the coefficient of determination of the prediction.
+
+        :param data: the input variables as matrix, array-like of shape (n_samples, n_features)
+        :type data: ndarray
+        :param targets: the class attribute column, array-like of shape (n_samples,)
+        :type targets: ndarray
+        :return: the score
+        :rtype: float
+        """
+        y_pred = self.predict(data)
+        if self._nominal_output_var:
+            return accuracy_score(targets, y_pred, sample_weight=sample_weight)
+        else:
+            return r2_score(targets, y_pred, sample_weight=sample_weight)
 
     def get_params(self, deep=True):
         """
