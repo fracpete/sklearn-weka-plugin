@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.0.7 (????-??-??)
+------------------
+
+- `WekaEstimator` (module `sklweka.classifiers`) now has a custom `score` method that
+  distinguishes between classification and regression to return the correct score.
+
+
 0.0.6 (2022-04-26)
 ------------------
 
