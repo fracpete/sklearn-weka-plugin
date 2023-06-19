@@ -52,8 +52,8 @@ class WekaCluster(BaseEstimator, OptionHandler, ClusterMixin):
         self._cluster = Clusterer(jobject=_jobject)
         self.header_ = None
         # the following references are required for get_params/set_params
-        self._classname = classname
-        self._options = options
+        self._classname = classname if (classname is not None) else self._cluster.classname
+        self._options = options if (options is not None) else self._cluster.options
         self._nominal_input_vars = nominal_input_vars
         self._num_nominal_input_labels = num_nominal_input_labels
 
