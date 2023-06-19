@@ -79,22 +79,22 @@ class WekaTransformer(BaseEstimator, OptionHandler, TransformerMixin):
         """
         return self.header_
 
-    def fit(self, data, targets):
+    def fit(self, X, y):
         """
         Trains the estimator.
 
-        :param data: the input variables as matrix, array-like of shape (n_samples, n_features)
-        :type data: ndarray
-        :param targets: the optional class attribute column, array-like of shape (n_samples,)
-        :type targets: ndarray
+        :param X: the input variables as matrix, array-like of shape (n_samples, n_features)
+        :type X: ndarray
+        :param y: the optional class attribute column, array-like of shape (n_samples,)
+        :type y: ndarray
         :return: itself
         :rtype: WekaTransformer
         """
-        if targets is None:
-            check_array(data)
+        if y is None:
+            check_array(X)
         else:
-            check_X_y(data, targets)
-        d = to_instances(data, y=targets,
+            check_X_y(X, y)
+        d = to_instances(X, y=y,
                          num_nominal_labels=self._num_nominal_input_labels,
                          num_class_labels=self._num_nominal_output_labels)
         self.header_ = Instances.template_instances(d)
@@ -102,28 +102,28 @@ class WekaTransformer(BaseEstimator, OptionHandler, TransformerMixin):
         self._filter.filter(d)
         return self
 
-    def transform(self, data, targets=None):
+    def transform(self, X, y=None):
         """
         Filters the data.
 
-        :param data: the data to filter, array-like of shape (n_samples, n_features)
-        :type data: ndarray
-        :param targets: the optional class attribute column, array-like of shape (n_samples,)
-        :type targets: ndarray
+        :param X: the data to filter, array-like of shape (n_samples, n_features)
+        :type X: ndarray
+        :param y: the optional class attribute column, array-like of shape (n_samples,)
+        :type y: ndarray
         :return: the filtered data, X if no targets or (X, y) if targets provided
         :rtype: ndarray or tuple
         """
         check_is_fitted(self)
-        no_targets = targets is None
+        no_targets = y is None
 
         # dummy class values necessary?
         if no_targets and self.header_.has_class():
-            targets = []
-            for i in range(data.shape[0]):
-                targets.append(missing_value())
-            targets = np.array(targets)
+            y = []
+            for i in range(X.shape[0]):
+                y.append(missing_value())
+            y = np.array(y)
 
-        d = to_instances(data, y=targets,
+        d = to_instances(X, y=y,
                          num_nominal_labels=self._num_nominal_input_labels,
                          num_class_labels=self._num_nominal_output_labels)
         d_new = self._filter.filter(d)
@@ -254,40 +254,40 @@ class MakeNominal(BaseEstimator, TransformerMixin):
         """
         return self._input_vars
 
-    def fit(self, data, targets):
+    def fit(self, X, y):
         """
         Trains the estimator.
 
-        :param data: the input variables as matrix, array-like of shape (n_samples, n_features)
-        :type data: ndarray
-        :param targets: the optional class attribute column, array-like of shape (n_samples,)
-        :type targets: ndarray
+        :param X: the input variables as matrix, array-like of shape (n_samples, n_features)
+        :type X: ndarray
+        :param y: the optional class attribute column, array-like of shape (n_samples,)
+        :type y: ndarray
         :return: itself
         :rtype: WekaTransformer
         """
-        if targets is None:
-            check_array(data, dtype=None)
+        if y is None:
+            check_array(X, dtype=None)
         else:
-            check_X_y(data, targets, dtype=None)
+            check_X_y(X, y, dtype=None)
         self.initialized_ = True
         return self
 
-    def transform(self, data, targets=None):
+    def transform(self, X, y=None):
         """
         Filters the data.
 
-        :param data: the data to filter, array-like of shape (n_samples, n_features)
-        :type data: ndarray
-        :param targets: the optional class attribute column, array-like of shape (n_samples,)
-        :type targets: ndarray
+        :param X: the data to filter, array-like of shape (n_samples, n_features)
+        :type X: ndarray
+        :param y: the optional class attribute column, array-like of shape (n_samples,)
+        :type y: ndarray
         :return: the filtered data, X if no targets or (X, y) if targets provided
         :rtype: ndarray or tuple
         """
         check_is_fitted(self)
-        X_new = to_nominal_attributes(data, self._input_vars)
+        X_new = to_nominal_attributes(X, self._input_vars)
         y_new = None
-        if targets is not None:
-            y_new = to_nominal_labels(targets)
+        if y is not None:
+            y_new = to_nominal_labels(y)
         return X_new, y_new
 
     def get_params(self, deep=True):

@@ -89,23 +89,25 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         """
         return self.header_
 
-    def fit(self, data, targets):
+    def fit(self, X, y, sample_weight=None):
         """
         Trains the estimator.
 
-        :param data: the input variables as matrix, array-like of shape (n_samples, n_features)
-        :type data: ndarray
-        :param targets: the class attribute column, array-like of shape (n_samples,)
-        :type targets: ndarray
+        :param X: the input variables as matrix, array-like of shape (n_samples, n_features)
+        :type X: ndarray
+        :param y: the class attribute column, array-like of shape (n_samples,)
+        :type y: ndarray
+        :param sample_weight: Sample weights. If None, then samples are equally weighted. TODO Currently ignored.
+        :type sample_weight: array-like of shape (n_samples,), default=None
         :return: itself
         :rtype: WekaEstimator
         """
-        data, targets = check_X_y(data, y=targets, dtype=None)
+        X, y = check_X_y(X, y=y, dtype=None)
         if self._nominal_input_vars is not None:
-            data = to_nominal_attributes(data, self._nominal_input_vars)
+            X = to_nominal_attributes(X, self._nominal_input_vars)
         if self._nominal_output_var is not None:
-            targets = to_nominal_labels(targets)
-        d = to_instances(data, targets,
+            y = to_nominal_labels(y)
+        d = to_instances(X, y,
                          num_nominal_labels=self._num_nominal_input_labels,
                          num_class_labels=self._num_nominal_output_labels)
         self._classifier.build_classifier(d)
@@ -116,21 +118,21 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
             self.classes_ = None
         return self
 
-    def predict(self, data):
+    def predict(self, X):
         """
         Performs predictions with the trained classifier.
 
-        :param data: the data matrix to generate predictions for, array-like of shape (n_samples, n_features)
-        :type data: ndarray
+        :param X: the data matrix to generate predictions for, array-like of shape (n_samples, n_features)
+        :type X: ndarray
         :return: the score (or scores)
         :rtype: ndarray
         """
         check_is_fitted(self)
         if self._nominal_input_vars is not None:
-            data = to_nominal_attributes(data, self._nominal_input_vars)
-        data = check_array(data, dtype=None)
+            X = to_nominal_attributes(X, self._nominal_input_vars)
+        X = check_array(X, dtype=None)
         result = []
-        for d in data:
+        for d in X:
             inst = to_instance(self.header_, d, missing_value())
             if self.header_.class_attribute.is_nominal:
                 result.append(self.header_.class_attribute.value(int(self._classifier.classify_instance(inst))))
@@ -138,41 +140,43 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
                 result.append(self._classifier.classify_instance(inst))
         return np.array(result)
 
-    def predict_proba(self, data):
+    def predict_proba(self, X):
         """
         Performs predictions and returns class probabilities.
 
-        :param data: the data matrix to generate predictions for, array-like of shape (n_samples, n_features)
-        :type data: ndarray
+        :param X: the data matrix to generate predictions for, array-like of shape (n_samples, n_features)
+        :type X: ndarray
         :return: the probabilities
         """
         check_is_fitted(self)
         if self._nominal_input_vars is not None:
-            data = to_nominal_attributes(data, self._nominal_input_vars)
-        data = check_array(data, dtype=None)
+            X = to_nominal_attributes(X, self._nominal_input_vars)
+        X = check_array(X, dtype=None)
         result = []
-        for d in data:
+        for d in X:
             inst = to_instance(self.header_, d, missing_value())
             result.append(self._classifier.distribution_for_instance(inst))
         return np.array(result)
 
-    def score(self, data, targets, sample_weight=None):
+    def score(self, X, y, sample_weight=None):
         """
         Classification: return the mean accuracy on the given test data and labels.
         Regression: return the coefficient of determination of the prediction.
 
-        :param data: the input variables as matrix, array-like of shape (n_samples, n_features)
-        :type data: ndarray
-        :param targets: the class attribute column, array-like of shape (n_samples,)
-        :type targets: ndarray
+        :param X: the input variables as matrix, array-like of shape (n_samples, n_features)
+        :type X: ndarray
+        :param y: the class attribute column, array-like of shape (n_samples,)
+        :type y: ndarray
+        :param sample_weight: Sample weights. If None, then samples are equally weighted.
+        :type sample_weight: array-like of shape (n_samples,), default=None
         :return: the score
         :rtype: float
         """
-        y_pred = self.predict(data)
+        y_pred = self.predict(X)
         if self._nominal_output_var:
-            return accuracy_score(targets, y_pred, sample_weight=sample_weight)
+            return accuracy_score(y, y_pred, sample_weight=sample_weight)
         else:
-            return r2_score(targets, y_pred, sample_weight=sample_weight)
+            return r2_score(y, y_pred, sample_weight=sample_weight)
 
     def get_params(self, deep=True):
         """

@@ -77,57 +77,61 @@ class WekaCluster(BaseEstimator, OptionHandler, ClusterMixin):
         """
         return self.header_
 
-    def fit(self, data, targets=None):
+    def fit(self, X, y=None, sample_weight=None):
         """
         Trains the cluster.
 
-        :param data: the input variables as matrix, array-like of shape (n_samples, n_features)
-        :type data: ndarray
-        :param targets: ignored
-        :type targets: ndarray
+        :param X: the input variables as matrix, array-like of shape (n_samples, n_features)
+        :type X: ndarray
+        :param y: ignored
+        :type y: ndarray
+        :param sample_weight: Sample weights. If None, then samples are equally weighted. TODO Currently ignored.
+        :type sample_weight: array-like of shape (n_samples,), default=None
         :return: the cluster
         :rtype: WekaCluster
         """
         if self._nominal_input_vars is not None:
-            data = to_nominal_attributes(data, self._nominal_input_vars)
-        d = to_instances(data, num_nominal_labels=self._num_nominal_input_labels)
+            X = to_nominal_attributes(X, self._nominal_input_vars)
+        d = to_instances(X, num_nominal_labels=self._num_nominal_input_labels)
         self._cluster.build_clusterer(d)
         self.header_ = d.template_instances(d, 0)
         return self
 
-    def predict(self, data, targets=None):
+    def predict(self, X, y=None):
         """
         Predicts cluster labels.
 
-        :param data: the input variables as matrix, array-like of shape (n_samples, n_features)
-        :type data: ndarray
-        :param targets: ignored
-        :type targets: ndarray
+        :param X: the input variables as matrix, array-like of shape (n_samples, n_features)
+        :type X: ndarray
+        :param y: ignored
+        :type y: ndarray
         :return: the cluster labels (of type int)
         :rtype: ndarray
         """
         check_is_fitted(self)
         if self._nominal_input_vars is not None:
-            data = to_nominal_attributes(data, self._nominal_input_vars)
+            X = to_nominal_attributes(X, self._nominal_input_vars)
         result = []
-        for d in data:
+        for d in X:
             inst = to_instance(self.header_, d)
             result.append(int(self._cluster.cluster_instance(inst)))
         return np.array(result)
 
-    def fit_predict(self, data, targets=None):
+    def fit_predict(self, X, y=None, sample_weight=None):
         """
         Trains the cluster and returns the cluster labels.
 
-        :param data: the input variables as matrix, array-like of shape (n_samples, n_features)
-        :type data: ndarray
-        :param targets: ignored
-        :type targets: ndarray
+        :param X: the input variables as matrix, array-like of shape (n_samples, n_features)
+        :type X: ndarray
+        :param y: ignored
+        :type y: ndarray
+        :param sample_weight: Sample weights. If None, then samples are equally weighted. TODO Currently ignored.
+        :type sample_weight: array-like of shape (n_samples,), default=None
         :return: the cluster labels (of type int)
         :rtype: ndarray
         """
-        self.fit(data)
-        return self.predict(data)
+        self.fit(X)
+        return self.predict(X)
 
     def get_params(self, deep=True):
         """

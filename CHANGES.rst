@@ -6,6 +6,8 @@ Changelog
 
 - `WekaEstimator` (module `sklweka.classifiers`) now has a custom `score` method that
   distinguishes between classification and regression to return the correct score.
+- renamed `data` to `X` and `targets` to `y`, since some sklearn schemes use named arguments
+- added dummy argument `sample_weight=None` to `fit`, `score` and `fit_predict` methods
 
 
 0.0.6 (2022-04-26)
