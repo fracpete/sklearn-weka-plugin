@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.0.7 (????-??-??)
+0.0.7 (2023-07-07)
 ------------------
 
 - `WekaEstimator` (module `sklweka.classifiers`) now has a custom `score` method that
