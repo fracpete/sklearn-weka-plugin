@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>sklweka package &#8212; sklearn-weka-plugin 0.0.6 documentation</title>
+    <title>sklweka package &#8212; sklearn-weka-plugin 0.0.7 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
@@ -57,13 +57,14 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sklweka.classifiers.WekaEstimator.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.classifiers.WekaEstimator.fit" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.classifiers.WekaEstimator.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Trains the estimator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>ndarray</em>) – the input variables as matrix, array-like of shape (n_samples, n_features)</p></li>
-<li><p><strong>targets</strong> (<em>ndarray</em>) – the class attribute column, array-like of shape (n_samples,)</p></li>
+<li><p><strong>X</strong> (<em>ndarray</em>) – the input variables as matrix, array-like of shape (n_samples, n_features)</p></li>
+<li><p><strong>y</strong> (<em>ndarray</em>) – the class attribute column, array-like of shape (n_samples,)</p></li>
+<li><p><strong>sample_weight</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>,</em><em>)</em><em>, </em><em>default=None</em>) – Sample weights. If None, then samples are equally weighted. TODO Currently ignored.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -108,11 +109,11 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sklweka.classifiers.WekaEstimator.predict">
-<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.classifiers.WekaEstimator.predict" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.classifiers.WekaEstimator.predict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs predictions with the trained classifier.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>data</strong> (<em>ndarray</em>) – the data matrix to generate predictions for, array-like of shape (n_samples, n_features)</p>
+<dd class="field-odd"><p><strong>X</strong> (<em>ndarray</em>) – the data matrix to generate predictions for, array-like of shape (n_samples, n_features)</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>the score (or scores)</p>
@@ -125,14 +126,36 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sklweka.classifiers.WekaEstimator.predict_proba">
-<span class="sig-name descname"><span class="pre">predict_proba</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.classifiers.WekaEstimator.predict_proba" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">predict_proba</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.classifiers.WekaEstimator.predict_proba" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs predictions and returns class probabilities.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>data</strong> (<em>ndarray</em>) – the data matrix to generate predictions for, array-like of shape (n_samples, n_features)</p>
+<dd class="field-odd"><p><strong>X</strong> (<em>ndarray</em>) – the data matrix to generate predictions for, array-like of shape (n_samples, n_features)</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>the probabilities</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklweka.classifiers.WekaEstimator.score">
+<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.classifiers.WekaEstimator.score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Classification: return the mean accuracy on the given test data and labels.
+Regression: return the coefficient of determination of the prediction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>ndarray</em>) – the input variables as matrix, array-like of shape (n_samples, n_features)</p></li>
+<li><p><strong>y</strong> (<em>ndarray</em>) – the class attribute column, array-like of shape (n_samples,)</p></li>
+<li><p><strong>sample_weight</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>,</em><em>)</em><em>, </em><em>default=None</em>) – Sample weights. If None, then samples are equally weighted.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the score</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -174,13 +197,14 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sklweka.clusters.WekaCluster.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.clusters.WekaCluster.fit" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.clusters.WekaCluster.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Trains the cluster.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>ndarray</em>) – the input variables as matrix, array-like of shape (n_samples, n_features)</p></li>
-<li><p><strong>targets</strong> (<em>ndarray</em>) – ignored</p></li>
+<li><p><strong>X</strong> (<em>ndarray</em>) – the input variables as matrix, array-like of shape (n_samples, n_features)</p></li>
+<li><p><strong>y</strong> (<em>ndarray</em>) – ignored</p></li>
+<li><p><strong>sample_weight</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>,</em><em>)</em><em>, </em><em>default=None</em>) – Sample weights. If None, then samples are equally weighted. TODO Currently ignored.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -194,13 +218,14 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sklweka.clusters.WekaCluster.fit_predict">
-<span class="sig-name descname"><span class="pre">fit_predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.clusters.WekaCluster.fit_predict" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">fit_predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.clusters.WekaCluster.fit_predict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Trains the cluster and returns the cluster labels.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>ndarray</em>) – the input variables as matrix, array-like of shape (n_samples, n_features)</p></li>
-<li><p><strong>targets</strong> (<em>ndarray</em>) – ignored</p></li>
+<li><p><strong>X</strong> (<em>ndarray</em>) – the input variables as matrix, array-like of shape (n_samples, n_features)</p></li>
+<li><p><strong>y</strong> (<em>ndarray</em>) – ignored</p></li>
+<li><p><strong>sample_weight</strong> (<em>array-like of shape</em><em> (</em><em>n_samples</em><em>,</em><em>)</em><em>, </em><em>default=None</em>) – Sample weights. If None, then samples are equally weighted. TODO Currently ignored.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -245,13 +270,13 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sklweka.clusters.WekaCluster.predict">
-<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.clusters.WekaCluster.predict" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.clusters.WekaCluster.predict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Predicts cluster labels.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>ndarray</em>) – the input variables as matrix, array-like of shape (n_samples, n_features)</p></li>
-<li><p><strong>targets</strong> (<em>ndarray</em>) – ignored</p></li>
+<li><p><strong>X</strong> (<em>ndarray</em>) – the input variables as matrix, array-like of shape (n_samples, n_features)</p></li>
+<li><p><strong>y</strong> (<em>ndarray</em>) – ignored</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -514,13 +539,13 @@ The class index can either be a 0-based int or a 1-based string
 <p>Converts numeric columns to nominal ones (ie string labels).</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="sklweka.preprocessing.MakeNominal.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.preprocessing.MakeNominal.fit" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.preprocessing.MakeNominal.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Trains the estimator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>ndarray</em>) – the input variables as matrix, array-like of shape (n_samples, n_features)</p></li>
-<li><p><strong>targets</strong> (<em>ndarray</em>) – the optional class attribute column, array-like of shape (n_samples,)</p></li>
+<li><p><strong>X</strong> (<em>ndarray</em>) – the input variables as matrix, array-like of shape (n_samples, n_features)</p></li>
+<li><p><strong>y</strong> (<em>ndarray</em>) – the optional class attribute column, array-like of shape (n_samples,)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -590,13 +615,13 @@ The class index can either be a 0-based int or a 1-based string
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sklweka.preprocessing.MakeNominal.transform">
-<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.preprocessing.MakeNominal.transform" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.preprocessing.MakeNominal.transform" title="Permalink to this definition">¶</a></dt>
 <dd><p>Filters the data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>ndarray</em>) – the data to filter, array-like of shape (n_samples, n_features)</p></li>
-<li><p><strong>targets</strong> (<em>ndarray</em>) – the optional class attribute column, array-like of shape (n_samples,)</p></li>
+<li><p><strong>X</strong> (<em>ndarray</em>) – the data to filter, array-like of shape (n_samples, n_features)</p></li>
+<li><p><strong>y</strong> (<em>ndarray</em>) – the optional class attribute column, array-like of shape (n_samples,)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -631,13 +656,13 @@ The class index can either be a 0-based int or a 1-based string
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sklweka.preprocessing.WekaTransformer.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.preprocessing.WekaTransformer.fit" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.preprocessing.WekaTransformer.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Trains the estimator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>ndarray</em>) – the input variables as matrix, array-like of shape (n_samples, n_features)</p></li>
-<li><p><strong>targets</strong> (<em>ndarray</em>) – the optional class attribute column, array-like of shape (n_samples,)</p></li>
+<li><p><strong>X</strong> (<em>ndarray</em>) – the input variables as matrix, array-like of shape (n_samples, n_features)</p></li>
+<li><p><strong>y</strong> (<em>ndarray</em>) – the optional class attribute column, array-like of shape (n_samples,)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -693,13 +718,13 @@ The class index can either be a 0-based int or a 1-based string
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sklweka.preprocessing.WekaTransformer.transform">
-<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.preprocessing.WekaTransformer.transform" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklweka.preprocessing.WekaTransformer.transform" title="Permalink to this definition">¶</a></dt>
 <dd><p>Filters the data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>ndarray</em>) – the data to filter, array-like of shape (n_samples, n_features)</p></li>
-<li><p><strong>targets</strong> (<em>ndarray</em>) – the optional class attribute column, array-like of shape (n_samples,)</p></li>
+<li><p><strong>X</strong> (<em>ndarray</em>) – the data to filter, array-like of shape (n_samples, n_features)</p></li>
+<li><p><strong>y</strong> (<em>ndarray</em>) – the optional class attribute column, array-like of shape (n_samples,)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -781,7 +806,7 @@ The class index can either be a 0-based int or a 1-based string
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2021-2022, Peter "fracpete" Reutemann.
+      &copy;2021-2023, Peter "fracpete" Reutemann.
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 4.3.1</a>
