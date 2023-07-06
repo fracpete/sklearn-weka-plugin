@@ -8,7 +8,7 @@ under the hood for communicating with Weka objects in the Java Virtual Machine.
 
 ## Functionality
 
-Currently available:
+The following is currently available:
 
 * Classifiers (classification/regression)
 * Clusters
@@ -23,6 +23,7 @@ Things to be aware of:
 * The conversion to Weka data structures involves guesswork, i.e., if targets are to be treated as nominal, you need 
   to convert the numeric values to strings (e.g., using `to_nominal_labels` and/or `to_nominal_attributes` functions 
   from `sklweka.dataset` or the `MakeNominal` transformer from `sklweka.preprocessing`).
+* Check the [list of known problems](https://fracpete.github.io/sklearn-weka-plugin/gotchas.html) before reporting one.
 
 
 ## Requirements
