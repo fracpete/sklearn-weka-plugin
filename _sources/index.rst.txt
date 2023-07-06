@@ -40,6 +40,7 @@ Contents
 
    install
    examples
+   gotchas
 
 API
 ===
