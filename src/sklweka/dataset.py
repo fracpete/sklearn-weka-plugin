@@ -105,7 +105,13 @@ def to_nominal_labels(y):
     :return: the converted vector
     :rtype: ndarray
     """
-    return np.array(["_" + str(x) for x in y])
+    result = []
+    for item in y:
+        if isinstance(item, np.bytes_):
+            result.append("_" + item.astype(str))
+        else:
+            result.append("_" + str(item))
+    return result
 
 
 def split_off_class(data, class_index):

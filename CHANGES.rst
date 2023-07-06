@@ -11,6 +11,7 @@ Changelog
 - fixed: when supplying Classifier or JBObject instead of classname/options, classname/options
   now get determined automatically
 - method `to_instance` (module: `sklweka.dataset`) now performs correct missing value check
+- method `to_nominal_labels` (module: `sklweka.dataset`) generates nicer labels now
 
 
 0.0.6 (2022-04-26)
