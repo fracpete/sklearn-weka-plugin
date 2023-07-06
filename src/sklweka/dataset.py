@@ -1,3 +1,4 @@
+import math
 from scipy.io.arff import loadarff
 from weka.core.dataset import Instances, Instance, Attribute
 from datetime import datetime
@@ -403,7 +404,8 @@ def to_instance(header, x, y=None, weight=1.0):
             raise Exception("Unsupported attribute type for column %d: %s" % ((i+1), header.attribute(i).type_str()))
 
     if y is not None and header.has_class():
-        if y == missing_value():
+        # missing value?
+        if math.isnan(y):
             values.append(missing_value())
         elif header.class_attribute.is_nominal:
             values.append(header.class_attribute.index_of(str(y)))

@@ -10,6 +10,7 @@ Changelog
 - added dummy argument `sample_weight=None` to `fit`, `score` and `fit_predict` methods
 - fixed: when supplying Classifier or JBObject instead of classname/options, classname/options
   now get determined automatically
+- method `to_instance` (module: `sklweka.dataset`) now performs correct missing value check
 
 
 0.0.6 (2022-04-26)
