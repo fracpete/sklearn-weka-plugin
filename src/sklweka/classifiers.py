@@ -133,7 +133,7 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         X = check_array(X, dtype=None)
         result = []
         for d in X:
-            inst = to_instance(self.header_, d, missing_value())
+            inst = to_instance(self.header_, d, y=missing_value())
             if self.header_.class_attribute.is_nominal:
                 result.append(self.header_.class_attribute.value(int(self._classifier.classify_instance(inst))))
             else:
@@ -154,7 +154,7 @@ class WekaEstimator(BaseEstimator, OptionHandler, RegressorMixin, ClassifierMixi
         X = check_array(X, dtype=None)
         result = []
         for d in X:
-            inst = to_instance(self.header_, d, missing_value())
+            inst = to_instance(self.header_, d, y=missing_value())
             result.append(self._classifier.distribution_for_instance(inst))
         return np.array(result)
 
