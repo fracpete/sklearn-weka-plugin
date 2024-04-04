@@ -38,6 +38,6 @@ setup(
     install_requires=[
         "numpy",
         "python-weka-wrapper3>=0.2.5",
-        "sklearn",
+        "scikit-learn",
     ],
 )
