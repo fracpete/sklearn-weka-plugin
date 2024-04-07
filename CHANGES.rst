@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.0.8 (2024-04-08)
+------------------
+
+- using `scikit-learn` instead of deprecated `sklearn` dependency for scikit-learn
+  (https://github.com/fracpete/sklearn-weka-plugin/pull/10)
+
+
 0.0.7 (2023-07-07)
 ------------------
 
