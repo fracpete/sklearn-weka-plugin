@@ -32,12 +32,12 @@ setup(
     packages=[
         "sklweka",
     ],
-    version="0.0.8",
+    version="0.1.0",
     author='Peter "fracpete" Reutemann',
     author_email='sklweka@fracpete.org',
     install_requires=[
         "numpy",
-        "python-weka-wrapper3>=0.2.5",
+        "python-weka-wrapper3>=0.3.0",
         "scikit-learn",
     ],
 )
