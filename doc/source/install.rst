@@ -13,7 +13,7 @@ Install the *sklearn-weka-plugin* library itself into the same virtual environme
 
   .. code-block:: bash
 
-     ./venv/bin/pip install sklearn-weka-plugin
+     ./venv/bin/pip install sklearn_weka_plugin
 
 * from local source (from within cloned directory)
 

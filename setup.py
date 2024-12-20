@@ -13,7 +13,7 @@ def _read(f):
 
 
 setup(
-    name="sklearn-weka-plugin",
+    name="sklearn_weka_plugin",
     description="Library for making Weka algorithms available within scikit-learn. Relies on the python-weka-wrapper3 library.",
     long_description=(
         _read('DESCRIPTION.rst') + b'\n' +
@@ -37,7 +37,7 @@ setup(
     author_email='sklweka@fracpete.org',
     install_requires=[
         "numpy",
-        "python-weka-wrapper3>=0.3.0",
+        "python_weka_wrapper3>=0.3.0",
         "scikit-learn",
     ],
 )

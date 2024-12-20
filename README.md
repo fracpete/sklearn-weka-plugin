@@ -32,7 +32,7 @@ The library has the following requirements:
 
 * Python 3 (does not work with Python 2)
 
-  * python-weka-wrapper (>=0.3.0, required)
+  * python_weka_wrapper3 (>=0.3.0, required)
 
 * OpenJDK 8 or later (11 is recommended)
 
@@ -48,7 +48,7 @@ The library has the following requirements:
   * latest release from PyPI
   
     ```commandline
-    ./venv/bin/pip install sklearn-weka-plugin
+    ./venv/bin/pip install sklearn_weka_plugin
     ```
 
   * from local source
